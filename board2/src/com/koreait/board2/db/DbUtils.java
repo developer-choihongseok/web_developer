@@ -18,9 +18,11 @@ public class DbUtils {
 		Connection con = DriverManager.getConnection(URL, USER, PW);
 		
 		System.out.println("DB 연결 성공!");
+		
 		return con;
 	}
 	
+	// 자원 해제
 	public static void close(Connection con, PreparedStatement ps) {
 		if(ps != null) {
 			try { ps.close(); } catch (SQLException e) { e.printStackTrace(); }

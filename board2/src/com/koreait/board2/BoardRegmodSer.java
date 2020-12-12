@@ -16,16 +16,19 @@ public class BoardRegmodSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int i_board = Utils.getIntParam(request, "i_board");	// 0
-		int typ = Utils.getIntParam(request, "typ");	// 0
+		int typ = Utils.getIntParam(request, "typ");			// 0
+		
 		if(typ == 0) {	// 에러페이지로 보냄
 			Utils.forwardErr(request, response);
 			return;
 		}
-		
 		System.out.println("i_board : " + i_board);
+		
 		String title = "글등록";
-		if(i_board > 0) {	// 수정! request에다가 자료를 담을꺼에요.
+		
+		if(i_board > 0) {	// 글 수정! request에다가 자료를 담을꺼에요.
 			title = "글수정";
 			BoardVO param = new BoardVO();
 			param.setTyp(typ);
@@ -36,13 +39,16 @@ public class BoardRegmodSer extends HttpServlet {
 		Utils.forward(title, "bRegmod", request, response);		
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		int typ = Utils.getIntParam(request, "typ");		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		int typ = Utils.getIntParam(request, "typ");
+		
 		if(typ == 0) {
 			request.setAttribute("err", "에러가 발생하였습니다.");
-			doGet(request, response);
-			return;
+			doGet(request, response);	// 에러 발생 시 doGet()으로 이동.
+			return;	 // 밑의 코드 실행 안 되도록 리턴문 작성.
 		}
+		// 0이면 등록 , 1이면 수정.
 		int i_board = Utils.getIntParam(request, "i_board");
 		
 		String title = request.getParameter("title");
@@ -61,8 +67,7 @@ public class BoardRegmodSer extends HttpServlet {
 			doGet(request, response);
 			return;
 		}
-		response.sendRedirect("/bDetail?typ=" + typ 
-				+ "&i_board=" + param.getI_board());
+		response.sendRedirect("/bDetail?typ=" + typ + "&i_board=" + param.getI_board());
 	}
 
 }

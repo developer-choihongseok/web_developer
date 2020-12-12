@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class Utils {
+	
 	public static void forward(String title, String target, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		String jsp = "/WEB-INF/jsp/temp/template.jsp";		
 		request.setAttribute("page", String.format("/WEB-INF/jsp/%s.jsp", target));
@@ -14,22 +15,21 @@ public class Utils {
 		request.getRequestDispatcher(jsp).forward(request, response);
 	}
 	
-	public static void forwardErr(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-		forward("에러", "err", request, response);
+	public static void forwardErr(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		forward("에러발생", "err", request, response);
 	}
 	
 	public static int getIntParam(HttpServletRequest request, String key) {
-		return getIntParam(request, key, 0);
+		return getIntParam(request, key, 0);	// 0번만
 	}
 	
 	public static int getIntParam(HttpServletRequest request, String key, int defVal) {
-		String param = request.getParameter(key);
+		String param = request.getParameter(key);	// defVal의 값에 해당하는 페이지
 		return parseStrToInt(param, defVal);
 	}
 	
 	public static int parseStrToInt(String val) {
-		return parseStrToInt(val, 0);
+		return parseStrToInt(val, 0);	// 0번만
 	}
 	
 	public static int parseStrToInt(String val, int defVal) {

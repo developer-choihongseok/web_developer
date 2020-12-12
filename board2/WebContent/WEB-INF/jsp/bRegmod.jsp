@@ -5,17 +5,17 @@
 <h1>${data == null ? '글등록' : '글수정' }</h1>
 
 <form action="/bRegmod" method="post" id="frm" onsubmit="return chk();">
-	<input type="hidden" name="i_board" value="${data.i_board}">
-	<input type="hidden" name="typ" value="${typ}">
+	<input type="hidden" name="i_board" value="${data.i_board }">
+	<input type="hidden" name="typ" value="${typ }">
 	
 	<div>
-		제목: <input type="text" name="title" value="${data.title}">
+		제목: <input type="text" name="title" value="${data.title }">
 	</div>
 	<div>
-		내용: <textarea name="ctnt">${data.ctnt}</textarea>
+		내용: <textarea name="ctnt">${data.ctnt }</textarea>
 	</div>
 	<div>
-		<input type="submit" value="${data == null ? '글등록' : '글수정'}">
+		<input type="submit" value="${data == null ? '글등록' : '글수정' }">
 	</div>
 </form>
 
@@ -25,7 +25,8 @@
 			return false;
 		}
 	}
-	<c:if test="${err != null}">
-		alert('${err}');
+	// /bRegmod의 doPost() -> err
+	<c:if test="${err != null }">
+		alert('${err }');
 	</c:if>
 </script>

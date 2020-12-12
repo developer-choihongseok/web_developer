@@ -19,18 +19,21 @@ public class BoardDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
+		// COUNT(i_board) / ? : 데이터의 총 개수 / 리스트에 보여질 게시물의 최대 개수
 		String sql = "SELECT ceil(COUNT(i_board) / ?) "
 				+ "from t_board_?";
 		
 		try {
 			con = DbUtils.getCon();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, param.getRowcntPerPage());
+			ps.setInt(1, param.getRowCntPerPage());
 			ps.setInt(2, param.getTyp());
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
-				return rs.getInt(1);	// 첫번째 컬럼 값 가져오기.
+				// 첫번째 컬럼 값 가져오기.
+				// 또는 sql문에 alias를 주어서, alias 이름을 넣어줘도 된다.
+				return rs.getInt(1);
 			}
 			
 		} catch(Exception e) {
@@ -45,6 +48,7 @@ public class BoardDAO {
 	public static BoardVO selBoard(final BoardVO param) {
 		
 		BoardVO vo = null;
+		
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -58,6 +62,7 @@ public class BoardDAO {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, param.getTyp());
 			ps.setInt(2, param.getI_board());
+			
 			rs = ps.executeQuery();
 			
 			if(rs.next()) {
@@ -75,11 +80,10 @@ public class BoardDAO {
 		} finally {
 			DbUtils.close(con, ps, rs);
 		}
-		
 		return vo;
 	}
 	
-	// 전체 글 읽기
+	// 서브 페이지의 글 목록 확인
 	public static List<BoardVO> selBoardList(final BoardVO param) {
 		List<BoardVO> list = new ArrayList();
 		
@@ -97,7 +101,7 @@ public class BoardDAO {
 			ps = con.prepareStatement(sql);			
 			ps.setInt(1, param.getTyp());
 			ps.setInt(2, param.getS_idx());
-			ps.setInt(3, param.getRowcntPerPage());
+			ps.setInt(3, param.getRowCntPerPage());	// 가져올 데이터 개수
 			rs = ps.executeQuery();
 			
 			BoardVO vo = null;
@@ -120,6 +124,7 @@ public class BoardDAO {
 		return list;
 	}
 	
+	// 댓글 읽기
 	public static List<BoardCmtVO> selBoardCmtList(final BoardVO param) {
 		List<BoardCmtVO> list = new ArrayList();
 		
@@ -136,6 +141,7 @@ public class BoardDAO {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, param.getTyp());
 			ps.setInt(2, param.getI_board());
+			
 			rs = ps.executeQuery();
 			
 			BoardCmtVO vo = null;
@@ -146,22 +152,23 @@ public class BoardDAO {
 				
 				vo.setI_cmt(rs.getInt("i_cmt"));
 				vo.setCtnt(rs.getNString("ctnt"));
-			}			
+			}
+			
 		}catch(Exception e) {
 			e.printStackTrace();
 		} finally {
 			DbUtils.close(con, ps, rs);
 		}
-		
 		return list;
 	}
 	
-	// 글 추가
+	// 글 쓰기
 	public static int insBoard(final BoardVO param) {
 		
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		
 		String sql = " INSERT INTO t_board_? "
 				+ " (title, ctnt) "
 				+ " VALUES "
@@ -175,13 +182,14 @@ public class BoardDAO {
 			ps.setNString(3, param.getCtnt());
 			int result = ps.executeUpdate();
 			
-			rs = ps.getGeneratedKeys();
+			rs = ps.getGeneratedKeys();	// PK값을 가져온다.
 			
 			if(rs.next()) {
+				// 1번쩨 컬럼을 얻어와서 
 				int i_board = rs.getInt(1);
+				// i_board의 값을 1번으로 바꾼다(원래 0번)
 				param.setI_board(i_board);
 			}
-			
 			return result;
 			
 		} catch (Exception e) {
@@ -257,6 +265,7 @@ public class BoardDAO {
 //		}	
 //	}
 	
+	// AOP(= 관점 지향 프로그래밍)
 	public static int myExecuteUpdate(String sql, SQLInterUpdate sqlInter) {
 		
 		Connection con = null;

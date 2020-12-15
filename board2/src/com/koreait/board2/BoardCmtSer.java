@@ -18,10 +18,11 @@ public class BoardCmtSer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
-
+	
+	// 댓글 입력 기능 처리
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 댓글 입력 기능 처리
-		int typ = Utils.getIntParam(request, "typ");
+		
+		int typ = Utils.getIntParam(request, "typ");	// int typ = Integer.parseInt(request.getParameter("typ"));
 		int i_board = Utils.getIntParam(request, "i_board");
 		// 원하는 값을 얻기 위해서는 입력 양식의 name 속성값을 getParameter()의 매개변수로 기술.
 		// getParameter() : 파라미터 값을 항상 문자열(String) 형태로만 얻어온다.
@@ -35,11 +36,11 @@ public class BoardCmtSer extends HttpServlet {
 		int result = BoardService.cmtIns(param);
 		
 		String err = "";
+		
 		if(result == 0) {
 			err = "&err=1";
 		}
 		
 		response.sendRedirect("/bDetail?typ=" + typ + "&i_board=" + i_board + err);
 	}
-
 }

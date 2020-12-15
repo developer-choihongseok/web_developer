@@ -16,6 +16,7 @@ public class BoardDetailSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int typ = Utils.getIntParam(request, "typ");
 		int i_board = Utils.getIntParam(request, "i_board");
 		int err = Utils.getIntParam(request, "err");
@@ -39,8 +40,8 @@ public class BoardDetailSer extends HttpServlet {
 		
 		BoardVO data = BoardService.detail(param, request);
 		request.setAttribute("data", data);
-		// 댓글 목록 확인 처리
-		request.setAttribute("cmtList", BoardService.selBoardCmtList(param));
+		request.setAttribute("cmtList", BoardService.selBoardCmtList(param));	// 댓글 목록 확인 처리
+		
 		Utils.forward(data.getTitle(), "bDetail", request, response);
 	}
 
@@ -64,5 +65,4 @@ public class BoardDetailSer extends HttpServlet {
 		//삭제 후, list로 이동
 		response.sendRedirect("/bList?typ=" + typ);
 	}
-
 }

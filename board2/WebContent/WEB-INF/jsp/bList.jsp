@@ -4,8 +4,11 @@
  
 <div>
 	<div>
-		<a href="/bRegmod?typ=${typ }"><button>글쓰기</button></a>
+		<a href="/bRegmod?typ=${typ }">
+			<button>글쓰기</button>
+		</a>
 	</div>
+	
 	<table>
 		<tr>
 			<td>번호</td>
@@ -22,10 +25,14 @@
 			</tr>
 		</c:forEach>
 	</table>
+	
 	<div class="pageContainer">
+		<%-- 1부터 ${pageCnt }까지 자연수를 순차적으로 출력함. --%>
 		<c:forEach begin="1" end="${pageCnt }" var="i">
 			<span>
-				<a href="/bList?typ=${typ }&page=${i }">${i }</a>
+				<a href="/bList?typ=${typ }&page=${i }">
+					${i }
+				</a>
 			</span>
 		</c:forEach>
 	</div>
@@ -36,19 +43,10 @@
 		//console.log('typ: ' + typ + ', i_board : ' + i_board);
 		//var url = '/bDetail?typ=' + typ + '&i_board=' + i_board;
 		
-		// ``를 쓸때는 값이 아닌 문장 그대로를 받도록 해야하기때문에 \를 붙여준다
+		// ``를 쓸때는 값이 아닌 문장 그대로를 받도록 해야 하기 때문에 \를 붙여준다.
 		// -> 그래야 제대로 올바르게 동작한다!!
 		var url = `/bDetail?typ=\${typ }&i_board=\${i_board }`;
 		console.log('url : ' + url);
 		location.href = url;	// 주소값 이동
 	}
 </script>
-
-
-
-
-
-
-
-
-

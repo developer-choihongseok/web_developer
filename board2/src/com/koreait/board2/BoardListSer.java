@@ -16,10 +16,13 @@ public class BoardListSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// typ=정수
+		// 따라서, typ 위치에 문자를 쓰거나 template.jsp에서 typ=1,2,3 이외의 다른 수를
+		// 넣어서 들어오면 무조건 1번 페이지로 넘어가게 했다.
 		int typ = Utils.getIntParam(request, "typ", 1);
 		int page = Utils.getIntParam(request, "page", 1);
-		System.out.println("typ : " + typ + "/ page : " + page);
+		
+		System.out.println("typ : " + typ);
 		
 		BoardVO param = new BoardVO();
 		param.setTyp(typ);
@@ -31,5 +34,8 @@ public class BoardListSer extends HttpServlet {
 		
 		Utils.forward("전체 리스트", "bList", request, response);
 	}
-
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
 }

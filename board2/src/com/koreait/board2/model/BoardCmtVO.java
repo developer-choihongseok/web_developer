@@ -3,8 +3,8 @@ package com.koreait.board2.model;
 public class BoardCmtVO {
 	
 	private int typ;
-	private int i_cmt;
-	private int i_board;
+	private int i_cmt;		// 
+	private int i_board;	// 
 	private String ctnt;
 	
 	public int getTyp() {

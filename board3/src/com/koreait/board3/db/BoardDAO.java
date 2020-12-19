@@ -21,7 +21,7 @@ public class BoardDAO extends CommonDAO{
 		 	- ON 절과 함께 사용되며, ON 절의 조건을 만족하는 데이터만을 가져온다.
 		 	- 테이블의 이름이 길거나 복잡한 경우에는 별칭(alias)을 사용하여 SQL구문을 간략화할 수 있다.
 		 	
-		 LEFT JOIN(A - B = A) 
+		 LEFT JOIN(A - B = A)
 		 	- 첫 번째 테이블을 기준으로, 두 번째 테이블을 조합하는 조인.
 		 	- 이때 ON 절의 조건을 만족하지 않는 경우에는 첫 번째 테이블의 필드 값은 그대로 가져온다.
 		  	     하지만 해당 레코드의 두 번째 테이블의 필드 값은 모두 NULL로 표시된다.
@@ -92,7 +92,6 @@ public class BoardDAO extends CommonDAO{
 			if(rs.next()) {
 				vo = new BoardSEL();
 				
-				vo.setI_board(param.getI_board());
 				vo.setSeq(rs.getInt("seq"));
 				vo.setTyp(rs.getInt("typ"));
 				vo.setTitle(rs.getString("title"));
@@ -101,7 +100,8 @@ public class BoardDAO extends CommonDAO{
 				vo.setHits(rs.getInt("hits"));
 				vo.setI_user(rs.getInt("i_user"));
 				vo.setNm(rs.getString("nm"));
-					
+				vo.setI_board(param.getI_board());
+				
 				return vo;
 			}
 				

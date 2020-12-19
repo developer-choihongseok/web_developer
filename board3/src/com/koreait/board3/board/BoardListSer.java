@@ -27,6 +27,8 @@ public class BoardListSer extends HttpServlet {
 		request.setAttribute("typ", typ);
 		
 		// board.js 파일 가지고 온다.
+		// basic_temp.jsp에서 forEach구문을 보면 배열로 만들어 놓은게 하나하나씩 쓸려고 배열로 만들었다.
+		// 그리고 board.js파일을 적용시키고, 나중에 다른 .js파일을 만들 때마다 계속 추가할 것이다.
 		request.setAttribute("jsList", new String[]{"board"});	// String[] jsList = {"board"};
 		
 		BoardService.selBoardList(request);	// request.setAttribute("list", BoardService.selBoardList(request));

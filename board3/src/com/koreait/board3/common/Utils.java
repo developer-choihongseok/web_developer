@@ -48,7 +48,7 @@ public class Utils {
 	// 변환 못하는게 들어오면, 에러가 나니까 defVal 값을 0으로 나오게 한다.
 	public static int parseStrToInt(String val, int defVal) {
 		try {
-			return Integer.parseInt(val);	// 오류가 나지 않았을 때, gender 값.
+			return Integer.parseInt(val);	// 오류가 나지 않았을 때, 실행
 		} catch(Exception e) {
 			// 받은 문자열 값이 없거나 숫자로 받지 않을 떄.
 		}

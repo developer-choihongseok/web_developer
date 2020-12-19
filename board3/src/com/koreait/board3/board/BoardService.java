@@ -24,10 +24,11 @@ public class BoardService {
 		int i_user = SecurityUtils.getLoginUserPK(request);
 		
 		// 글 등록
-		// IFNULL: 해당 필드의 값이 NULL을 반환할 때, 다른 값으로 출력할 수 있도록 하는 함수.
-		// select문 해석: seq가 null이면 0으로하고 +1을 한다. seq가 null이 아니면 max(seq)값 출력.
+		// IFNULL: 해당 필드의 값이 NULL을 반환할 때, 다른 값으로 출력할 수 있도록 하는 함수
+		//				-> c.f) oracle : nvl함수
+		// select문 해석: seq가 null이면 0이므로 +1을 한다. seq가 null이 아니면 max(seq)값 출력.
 		// max()를 넣어주지 않으면 여러 값들이 들어가기 때문에, 한 가지 값만 들어가야 한다.
-		// select문 여러 줄을 한 방에 넣을 수 있다!! 단,원본은 변하지 않는다!!
+		// select문 특징: 여러 줄을 한 방에 넣을 수 있다!! 단,원본은 변하지 않는다!!
 		if(i_board == 0) {
 			String sql = " INSERT INTO t_board "
 					+ " (typ, seq, title, ctnt, i_user) "

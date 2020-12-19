@@ -20,7 +20,7 @@
 				<th width="100">작성자</th>
 			</tr>
 		</thead>
-		<!-- list는 BoardService의 list이다. -->
+		<!-- list는 BoardService의 selBoardList()의 list이다. -->
 		<c:forEach items="${list }" var="item">
 			<tbody>
 				<tr class="pointer" onclick="clkArticle(${item.i_board })">

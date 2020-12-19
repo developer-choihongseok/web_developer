@@ -14,7 +14,6 @@ public class Utils {
 		// 서브 페이지 경로 설정
 		request.setAttribute("page", String.format("/WEB-INF/jsp/%s.jsp", target));
 		request.setAttribute("title", title);
-		// getRequestDispatcher() 메서드의 매개 변수로 지정한 페이지로 이동된다.
 		// forward 방식은 서버 상에서 페이지가 이동된다.
 		// 즉, 요청 당시의 현재 페이지에 대한 URL만 나타난다!!
 		request.getRequestDispatcher(jsp).forward(request, response);
@@ -24,23 +23,19 @@ public class Utils {
 		forward("에러발생", "err", request, response);
 	}
 	
-	// 
 	public static int getIntParam(HttpServletRequest request, String key) {
 		return getIntParam(request, key, 0);
 	}
 	
-	// 
 	public static int getIntParam(HttpServletRequest request, String key, int defVal) {
 		String param = request.getParameter(key);
 		return parseStrToInt(param, defVal);
 	}
 	
-	// 
 	public static int parseStrToInt(String val) {
 		return parseStrToInt(val, 0);
 	}
 	
-	// 
 	public static int parseStrToInt(String val, int defVal) {
 		try {
 			return Integer.parseInt(val);	// 오류가 나지 않았을 때, typ

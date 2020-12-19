@@ -5,8 +5,8 @@
 <h1>${data == null ? '글 등록' : '글 수정' }</h1>
 
 <form action="/bRegmod" method="post" id="frm" onsubmit="return chk();">
-	<input type="hidden" name="i_board" value="${data.i_board }">
 	<input type="hidden" name="typ" value="${typ }">
+	<input type="hidden" name="i_board" value="${data.i_board }">
 	
 	<div>
 		제목: <input type="text" name="title" value="${data.title }">

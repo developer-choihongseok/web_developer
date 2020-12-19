@@ -3,7 +3,6 @@ package com.koreait.board2.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,8 +67,9 @@ public class BoardDAO {
 			
 			if(rs.next()) {
 				vo = new BoardVO();
-				vo.setI_board(param.getI_board());
+				
 				vo.setTyp(param.getTyp());
+				vo.setI_board(param.getI_board());
 				
 				vo.setTitle(rs.getString("title"));
 				vo.setCtnt(rs.getString("ctnt"));
@@ -179,6 +179,8 @@ public class BoardDAO {
 		
 		try {
 			con = DbUtils.getCon();
+			
+			// INSERT하고 난, i_board 값
 			ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setInt(1, param.getTyp());
 			ps.setString(2, param.getTitle());
@@ -186,7 +188,8 @@ public class BoardDAO {
 			
 			int result = ps.executeUpdate();
 			
-			rs = ps.getGeneratedKeys();	// PK값을 가져온다.
+			// PK값을 가져온다.
+			rs = ps.getGeneratedKeys();
 			
 			// 값이 있는지 없는지 확인.
 			// next() 실행 후, get..() 메서드를 사용하여 값을 얻어옴.

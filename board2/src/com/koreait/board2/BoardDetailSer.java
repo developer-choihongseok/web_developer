@@ -40,14 +40,14 @@ public class BoardDetailSer extends HttpServlet {
 		
 		BoardVO data = BoardService.detail(param, request);
 		request.setAttribute("data", data);
-		request.setAttribute("cmtList", BoardService.selBoardCmtList(param));	// 댓글 목록 확인 처리
+		request.setAttribute("cmtList", BoardService.selBoardCmtList(param));	// 댓글 목록 확인
 		
 		Utils.forward(data.getTitle(), "bDetail", request, response);
 	}
-
+	
+	// 글 삭제
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 2개
-		// 글 삭제
+		
 		int typ = Utils.getIntParam(request, "typ");
 		int i_board = Utils.getIntParam(request, "i_board");
 

@@ -3,8 +3,8 @@ package com.koreait.board2.model;
 public class BoardCmtVO {
 	
 	private int typ;
-	private int i_cmt;		// 
-	private int i_board;	// 
+	private int i_cmt;		// 댓글 번호(= PK)
+	private int i_board;	// 글 목록 테이블의 번호(= FK)
 	private String ctnt;
 	
 	public int getTyp() {
@@ -31,6 +31,4 @@ public class BoardCmtVO {
 	public void setCtnt(String ctnt) {
 		this.ctnt = ctnt;
 	}
-	
-	
 }

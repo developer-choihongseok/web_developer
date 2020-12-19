@@ -28,12 +28,12 @@ public class BoardService {
 		
 		String key = String.format("b_%d_%d", param.getTyp(), param.getI_board());
 		
-		// application 객체에 저장된 내용은 하나의 프로젝트 내의 모든 JSP 페이지에서 공통적으로 사용 할 수 있다.
+		// application 객체에 저장된 내용은 하나의 프로젝트 내의 모든 jsp 페이지에서 공통적으로 사용 할 수 있다.
 		// 현재 서버에 어플리케이션 객체를 가져오는 코드.
 		ServletContext application = request.getServletContext();
 		String savedIp = (String)application.getAttribute(key);	// 처음 들어오면 null값이 들어있다.
 		
-		// 조회 수 증가 처리부분
+		// ip가 다르면 조회 수 증가, ip가 같으면 조회 수 증가 X
 		if(!ip.equals(savedIp)) {
 			application.setAttribute(key, ip);
 			
@@ -78,7 +78,7 @@ public class BoardService {
 		return BoardDAO.selBoardList(param);
 	}
 	
-	// 글 수정
+	// 글 수정 & 글 등록
 	public static int regmod(BoardVO param) {
 		
 		if(param.getI_board() > 0) {
@@ -97,7 +97,7 @@ public class BoardService {
 				}
 			});
 		}
-		return BoardDAO.insBoard(param);	// 글 등록
+		return BoardDAO.insBoard(param);
 	}
 	
 	// 글 삭제
@@ -118,7 +118,7 @@ public class BoardService {
 		});
 	}
 	
-	// 댓글 읽기
+	// 댓글 목록 확인
 	public static List<BoardCmtVO> selBoardCmtList(BoardVO param) {
 		return BoardDAO.selBoardCmtList(param);
 	}

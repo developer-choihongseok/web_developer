@@ -34,7 +34,7 @@
 			</form>
 		</div>
 		<%-- 댓글 리스트 --%>
-		<div>
+		<div style="margin-top: 10px;">
 			<table>
 				<tr>					
 					<th>댓글 목록</th>					

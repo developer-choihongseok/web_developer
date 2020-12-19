@@ -5,7 +5,7 @@ public class BoardVO {
 	private int i_board;		// 글 번호
 	private String title;		// 제목
 	private String ctnt;		// 내용
-	private String r_dt;		// 작성 날짜
+	private String r_dt;		// 등록 날짜
 	private int typ;			// 테이블 번호
 	private int hits;			// 조회 수
 	private int s_idx;			// 글 목록에 보일 첫번째 번호

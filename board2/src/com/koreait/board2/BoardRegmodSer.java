@@ -17,8 +17,8 @@ public class BoardRegmodSer extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int i_board = Utils.getIntParam(request, "i_board");	// 0
 		int typ = Utils.getIntParam(request, "typ");
+		int i_board = Utils.getIntParam(request, "i_board");	// 0
 		
 		if(typ == 0) {	// 에러 페이지로 보냄
 			Utils.forwardErr(request, response);
@@ -44,22 +44,22 @@ public class BoardRegmodSer extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int typ = Utils.getIntParam(request, "typ");	// 0
+		int typ = Utils.getIntParam(request, "typ");
 		
 		if(typ == 0) {
 			request.setAttribute("err", "에러가 발생하였습니다.");
 			doGet(request, response);	// 에러 발생 시 doGet()으로 이동.
 			return;	 // 밑의 코드 실행 안 되도록 리턴문 작성.
 		}
-		// 0이면 등록 , 1이면 수정.
-		int i_board = Utils.getIntParam(request, "i_board");	// 0
+		
+		int i_board = Utils.getIntParam(request, "i_board");	// 0이면 등록 , 1이면 수정.
 		
 		String title = request.getParameter("title");
 		String ctnt = request.getParameter("ctnt");
 		
 		BoardVO param = new BoardVO();
-		param.setI_board(i_board);
 		param.setTyp(typ);
+		param.setI_board(i_board);
 		param.setTitle(title);
 		param.setCtnt(ctnt);
 		

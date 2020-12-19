@@ -24,12 +24,11 @@ public class DbUtils {
 	
 	// 자원 해제
 	public static void close(Connection con, PreparedStatement ps) {
-		if(ps != null) {
-			try { ps.close(); } catch (SQLException e) { e.printStackTrace(); }
-		}
-		
 		if(con != null) {
 			try { con.close(); } catch (SQLException e) { e.printStackTrace(); }
+		}
+		if(ps != null) {
+			try { ps.close(); } catch (SQLException e) { e.printStackTrace(); }
 		}
 	}
 	

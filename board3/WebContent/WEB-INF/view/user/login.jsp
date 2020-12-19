@@ -7,6 +7,8 @@
 <title>${title }</title>
 </head>
 <body>
+	<h2>로그인 화면</h2>
+	
 	<div>
 		<div>
 			<form action="/login" method="post">

@@ -7,7 +7,9 @@
 <title>${title }</title>
 <script defer type="text/javascript" src="/res/js/join.js"></script>
 </head>
-<body>	
+<body>
+	<h2>회원가입</h2>
+	
 	<div>
 		<div>
 			<form action="/join" method="post" id="joinfrm" onsubmit="return joinChk();">

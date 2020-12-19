@@ -12,7 +12,7 @@ html, body {
 }
 
 a{
-	text-decoration: none;
+	text-decoration: none;	/* 밑줄 생성 삭제 */
 }
 
 .pointer {
@@ -20,7 +20,7 @@ a{
 }
 
 tr.pointer:hover {
-	background-color: #d2dae255;
+	background-color: #c0c0c0;
 }
 
 #container {
@@ -31,16 +31,32 @@ tr.pointer:hover {
 }
 
 header ul {
-    list-style-type: none;
+    list-style: none;
     margin: 0;
     padding: 0;
-    background-color: #333;
+    background-color: #008040;
 }
 
 header ul:after{
     content:'';
     display: block;
     clear:both;		/* 왼쪽, 오른쪽 모두 붙는 float 정렬을 취소한다. */
+}
+
+header li {
+	float: left;
+	width: 200px;
+	height: 65px;
+	line-height: 35px;
+}
+
+header li:hover {
+	background-color: #0000ff;
+}
+
+/* 안에~있는 -> 띄어쓰기로 표현 */
+header li:hover a{
+	color: #000000;
 }
 
 header ul li {
@@ -51,12 +67,16 @@ header ul li a {
     display: block;
     color: white;
     text-align: center;
-    padding: 14px 16px;
+    padding: 14px 16px;	/* 상하 14px, 좌우 16px */
+    font-weight: 900;
+    font-size: 16px;
 }
 
+/*
 header ul li a:hover:not(.active) {
     background-color: #111;
 }
+*/
 
 .centerCont {
 	width: 100%;

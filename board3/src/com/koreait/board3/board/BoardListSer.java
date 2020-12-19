@@ -22,12 +22,14 @@ public class BoardListSer extends HttpServlet {
 			return;
 		}
 		
+		// 쿼리 스트링에 typ 값을 받아온다.
 		int typ = Utils.getIntParam(request, "typ");
 		request.setAttribute("typ", typ);
 		
-		request.setAttribute("jsList", new String[]{"board"});
+		// board.js 파일 가지고 온다.
+		request.setAttribute("jsList", new String[]{"board"});	// String[] jsList = {"board"};
 		
-		BoardService.selBoardList(request);
+		BoardService.selBoardList(request);	// request.setAttribute("list", BoardService.selBoardList(request));
 		
 		Utils.forwardTemp("리스트", "temp/basic_temp", "board/bList", request, response);
 	}

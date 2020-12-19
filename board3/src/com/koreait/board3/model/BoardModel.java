@@ -3,13 +3,13 @@ package com.koreait.board3.model;
 public class BoardModel {
 	
 	private int i_board;
-	private int typ;
-	private int seq;
+	private int typ;	// 게시판 종류
+	private int seq;	// 글 번호
 	private String title;
 	private String ctnt;
 	private String r_dt;
 	private int hits;
-	private int i_user;
+	private int i_user;	// 글쓴이
 	
 	public int getI_board() {
 		return i_board;

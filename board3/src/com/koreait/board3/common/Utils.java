@@ -5,12 +5,9 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.koreait.board3.model.UserModel;
-
+// 아래와 같이 오버로딩 해서 쓰는 이유? 매번 사용할 때 마다 디폴트 값으로 0을 입력 안하게 하기 위함!!
 public class Utils {
-	
 	// Template.jsp(= 공통페이지)를 이용해서 보여줄 때 쓴다.
 	public static void forwardTemp(String title, String openPage
 			, String innerPage, HttpServletRequest request
@@ -32,28 +29,29 @@ public class Utils {
 		request.getRequestDispatcher(jsp).forward(request, response);
 	}
 	
-	// 
+	// getIntParam() : 통신 용도(jsp파일 <-> 서블릿 파일)
 	public static int getIntParam(HttpServletRequest request, String key) {
-		return getIntParam(request, key, 0);
+		return getIntParam(request, key, 0);	// key값이 없을 때, 0을 리턴.
 	}
 	
-	// 
+	// 값을 못 받아올 때, 0으로 받아오게 하려고 getIntParam()를 오버로딩 함.
 	public static int getIntParam(HttpServletRequest request, String key, int defVal) {
 		String param = request.getParameter(key);
-		return parseStrToInt(param, defVal);
+		return parseStrToInt(param, defVal);	// 문자열을 숫자로 변환.
 	}
 	
-	// 
+	// 문자열을 숫자로 변환하는 메서드
 	public static int parseStrToInt(String val) {
-		return parseStrToInt(val, 0);
+		return parseStrToInt(val, 0);	// val을 숫자로 변환.
 	}
 	
-	// 
+	// 변환 못하는게 들어오면, 에러가 나니까 defVal 값을 0으로 나오게 한다.
 	public static int parseStrToInt(String val, int defVal) {
 		try {
-			return Integer.parseInt(val);	// 오류가 나지 않았을 때, gender.
-		} catch(Exception e) {}
-		
-		return defVal;	// 오류가 났을 때, defVal 값.
+			return Integer.parseInt(val);	// 오류가 나지 않았을 때, gender 값.
+		} catch(Exception e) {
+			// 받은 문자열 값이 없거나 숫자로 받지 않을 떄.
+		}
+		return defVal;	// 오류가 났을 때, 0을 리턴.
 	}
 }

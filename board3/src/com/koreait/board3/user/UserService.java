@@ -77,7 +77,7 @@ public class UserService {
 		
 //		return UserDAO.login(p);	// 여기서 0,1,2,3 다 처리.
 		
-		// m은 selUser에서 i_user, nm, user_pw, salt 값이 담겨있는 값을 담았다.
+		// m은 selUser에서 i_user, nm, user_pw, salt 값에 담겨있는 값을 담았다.
 		UserModel m = UserDAO.selUser(p);
 		
 		if(m == null) {

@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.koreait.board3.common.SecurityUtils;
 import com.koreait.board3.common.Utils;
+import com.koreait.board3.model.BoardSEL;
 
-@WebServlet("/board/bRegmod")
-public class BoardRegmodSer extends HttpServlet {
+@WebServlet("/board/bDetail")
+public class BoardDetailSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,21 +23,12 @@ public class BoardRegmodSer extends HttpServlet {
 			return;
 		}
 		
-		// 쿼리 스트링에 typ 값을 받아온다.
-		int typ = Utils.getIntParam(request, "typ");
-		request.setAttribute("typ", typ);
-		
 		// board.js 파일 가지고 온다.
 		request.setAttribute("jsList", new String[]{"board"});
 		
-		Utils.forwardTemp("등록/수정", "temp/basic_temp", "board/bRegmod", request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int result = BoardService.regMod(request);
+		BoardSEL data = BoardService.detail(request);
+		request.setAttribute("data", data);
 		
-		String typ = request.getParameter("typ");	// 문자열로 합칠려고 String으로 했다.
-		
-		response.sendRedirect("list?typ=" + typ);
+		Utils.forwardTemp(data.getTitle(), "temp/basic_temp", "board/bDetail", request, response);
 	}
 }

@@ -11,7 +11,7 @@
 		<div>
 			<form action="/login" method="post">
 				<div>
-					<input type="text" name="user_id" placeholder="아이디를 입력하세요." value="${user_id }">
+					<input type="text" name="user_id" placeholder="아이디를 입력하세요." value="${user_id }" autofocus="autofocus">
 				</div>
 				<div>
 					<input type="password" name="user_pw" placeholder="비밀번호를 입력하세요.">

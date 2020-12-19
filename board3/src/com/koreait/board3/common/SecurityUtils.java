@@ -29,6 +29,7 @@ public class SecurityUtils {
 	}
 	
 	// 실제로 수정, 삭제 할 때 자주 쓰인다!! -> 만들어 놓으면 편하다.
+	// 글 작성자
 	public static int getLoginUserPK(HttpServletRequest request) {
 		UserModel loginUser = getLoginUser(request);
 		
@@ -45,7 +46,7 @@ public class SecurityUtils {
         	// SHA- 512 : 64byte -> 영문/숫자 합쳐서 64글자
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             // Base64 Decoding
-            // Decoding : -> 코드를 문자로 변환.
+            // Decoding : -> 코드를 문자로 변환(= 암호화 해제)
             byte[] byteSalt = Base64.decodeBase64(salt);
             // 객체 내에 저장된 digest 값(= 해쉬 값)이 계속해서 갱신된다.
             md.update(byteSalt);
@@ -73,7 +74,7 @@ public class SecurityUtils {
         random.nextBytes(salt);
         
         // Base64 Encoding
-        // Encoding : 문자를 코드로 변환(즉, 표현 방법을 바꾸는 것!!),	목적: 정보의 호환성
+        // Encoding : 문자를 코드로 변환(즉, 암호화),		목적: 정보의 호환성
         return Base64.encodeBase64String(salt);
     }
 }

@@ -8,7 +8,7 @@
 	<c:if test="${data.i_user == loginUser.i_user }">
 		<button onclick="clkDel(${data.i_board}, ${data.typ });">삭제</button>
 		
-		<a href="bRegmod?i_board=${data.i_board }">
+		<a href="regmod?typ=${data.typ }&i_board=${data.i_board }">
 			<button>수정</button>
 		</a>
 	</c:if>
@@ -25,10 +25,9 @@
 	<div style="margin-top: 20px;">
 		<%-- 댓글 쓰는 부분 --%>
 		<div>
-			<form action="/cmt" method="post">
-				<input type="hidden" name="typ" value="${data.typ }">
+			<form action="cmt/reg" method="post">
 				<input type="hidden" name="i_board" value="${data.i_board }">
-				댓글: <input type="text" name="cmt_ctnt">
+				댓글: <input type="text" name="ctnt">
 				<input type="submit" value="댓글쓰기">
 			</form>
 		</div>
@@ -41,6 +40,7 @@
 				<c:forEach items="${cmtList }" var="item">
 					<tr>
 						<td>${item.ctnt }</td>
+						<td>${item.r_dt }</td>
 					</tr>
 				</c:forEach>
 			</table>

@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.koreait.board3.board.cmt.BoardCmtService;
 import com.koreait.board3.common.SecurityUtils;
 import com.koreait.board3.common.Utils;
+import com.koreait.board3.model.BoardPARAM;
 import com.koreait.board3.model.BoardSEL;
 
-@WebServlet("/board/bDetail")
+@WebServlet("/board/detail")
 public class BoardDetailSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -28,8 +30,14 @@ public class BoardDetailSer extends HttpServlet {
 		// 그리고 board.js파일을 적용시키고, 나중에 다른 .js파일을 만들 때마다 계속 추가할 것이다.
 		request.setAttribute("jsList", new String[]{"board"});
 		
+		int i_board = Utils.getIntParam(request, "i_board");
+		
+		BoardPARAM param = new BoardPARAM();
+		param.setI_board(i_board);
+		
 		BoardSEL data = BoardService.detail(request);
 		request.setAttribute("data", data);
+		request.setAttribute("cmtList", BoardCmtService.selBoardcmtList(request));
 		
 		Utils.forwardTemp(data.getTitle(), "temp/basic_temp", "board/bDetail", request, response);
 	}

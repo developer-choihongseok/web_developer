@@ -15,7 +15,7 @@ import com.koreait.board3.model.BoardSEL;
 // BoardService를 이용한다는 것은 로그인이 된 상태!!
 public class BoardService {
 	// 글 등록 & 글 수정
-	public static int regMod(HttpServletRequest request) {
+	public static String regMod(HttpServletRequest request) {
 		
 		int i_board = Utils.getIntParam(request, "i_board");
 		int typ = Utils.getIntParam(request, "typ");
@@ -48,10 +48,30 @@ public class BoardService {
 					ps.setInt(5, typ);
 				}
 			});
-		}else {	// 글 수정
 			
+			return "list?typ=" + typ;
+					
+		}else {	// 글 수정
+			// i_user까지 해주어야 장난질을 막을 수 있다!!
+			String sql = " UPDATE t_board "
+					+ " SET title = ?, ctnt = ? "
+					+ " WHERE i_board = ? "
+					+ " AND i_user = ?";
+			
+			// 업데이트 되었으면 1, 문제가 생겼으면 0이 넘어간다.
+			BoardDAO.executeUpdate(sql, new SQLInterUpdate() {
+					
+				@Override
+				public void proc(PreparedStatement ps) throws SQLException {
+					ps.setString(1, title);
+					ps.setString(2, ctnt);
+					ps.setInt(3, i_board);
+					ps.setInt(4, SecurityUtils.getLoginUserPK(request));
+				}
+			});
+			
+			return "detail?i_board=" + i_board;
 		}
-		return 0;
 	}
 	
 	// 글 목록 확인
@@ -77,15 +97,20 @@ public class BoardService {
 	// 글 읽기
 	public static BoardSEL detail(HttpServletRequest request) {
 		int i_board = Utils.getIntParam(request, "i_board");
-			
+		
+		if(i_board == 0) {
+			return null;
+		}
+		
 		BoardPARAM p = new BoardPARAM();
 		p.setI_board(i_board);
 			
-		return BoardDAO.selBoard(p);
+		return BoardDAO.selBoard(p);	// return i_board != 0 ? BoardDAO.selBoard(p) : null;
+		
 	}
 	
 	// 글 삭제
-	public static int delBoard(HttpServletRequest request) {
+	public static int del(HttpServletRequest request) {
 		
 		int i_board = Utils.getIntParam(request, "i_board");
 		int i_user = SecurityUtils.getLoginUserPK(request);
@@ -101,4 +126,6 @@ public class BoardService {
 			}
 		});
 	}
+	
+	
 }

@@ -6,11 +6,8 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.startup.UserConfig;
-
 import com.koreait.board3.common.SecurityUtils;
 import com.koreait.board3.common.Utils;
-import com.koreait.board3.db.CommonDAO;
 import com.koreait.board3.db.SQLInterUpdate;
 import com.koreait.board3.db.UserDAO;
 import com.koreait.board3.model.UserModel;

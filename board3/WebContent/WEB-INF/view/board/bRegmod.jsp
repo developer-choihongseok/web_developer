@@ -4,8 +4,9 @@
   
 <h1>${data == null ? '글 등록' : '글 수정' }</h1>
 
-<form action="bRegmod" method="post" id="frm">
-	<input type="hidden" name="typ" value="${typ }">
+<form action="regmod" method="post" id="frm">
+	<!-- param은 쿼리스트링에 있는 값. -->
+	<input type="hidden" name="typ" value="${param.typ }">
 	<input type="hidden" name="i_board" value="${data.i_board }">
 	
 	<div>

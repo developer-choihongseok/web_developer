@@ -1,6 +1,6 @@
 // 글 번호 클릭 시, 해당 url로 이동
 function clkArticle(i_board) {
-	var url = `bDetail?i_board=${i_board}`; 
+	var url = `detail?i_board=${i_board}`; 
 	location.href = url;	// 주소값 이동
 }
 
@@ -17,6 +17,6 @@ function chk() {
 // 삭제 버튼 클릭
 function clkDel(i_board, typ){
 	if(confirm('삭제 하시겠습니까?')){
-		location.href = `bDel?i_board=${i_board}&typ=${typ}`;
+		location.href = `del?i_board=${i_board}&typ=${typ}`;
 	}
 }

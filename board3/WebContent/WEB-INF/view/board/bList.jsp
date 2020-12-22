@@ -5,7 +5,7 @@
 <div>
 	<div>
 		<!-- '/'를 안 붙이면, 이동 전 주소 끝에 있는 주소값만 변경,	'/'뺏을 경우 /board/board -->
-		<a href="bRegmod?typ=${typ }">
+		<a href="regmod?typ=${typ }">
 			<button>글쓰기</button>
 		</a>
 	</div>
@@ -38,7 +38,7 @@
 		<%-- 1부터 ${pageCnt }까지 자연수를 순차적으로 출력함. --%>
 		<c:forEach begin="1" end="${pageCnt }" var="i">
 			<span>
-				<a href="/bList?typ=${typ }&page=${i }">${i }</a>
+				<a href="/list?typ=${typ }&page=${i }">${i }</a>
 			</span>
 		</c:forEach>
 	</div>

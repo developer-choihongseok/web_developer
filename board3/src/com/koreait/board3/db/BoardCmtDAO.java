@@ -19,12 +19,14 @@ public class BoardCmtDAO extends CommonDAO{
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = " SELECT A.i_cmt, A.i_board, A.i_user, A.ctnt, A.r_dt, B.nm"
+		String sql = " SELECT A.i_cmt, A.ctnt "
+				+ " , date_format(A.r_dt, '%y-%m-%d %H:%i') AS r_dt "
+				+ " , B.i_user, B.nm AS user_nm "
 				+ " FROM t_board_cmt A "
-				+ " INNER JOIN t_user B "
+				+ " LEFT JOIN t_user B "
 				+ " ON A.i_user = B.i_user "
 				+ " WHERE A.i_board = ? "
-				+ " ORDER BY A.i_cmt DESC";
+				+ " ORDER BY i_cmt DESC";
 	
 		try {
 			con = DbUtils.getCon();
@@ -39,11 +41,10 @@ public class BoardCmtDAO extends CommonDAO{
 				sel = new BoardCmtSEL();
 				
 				sel.setI_cmt(rs.getInt("i_cmt"));
-				sel.setI_board(rs.getInt("i_board"));
-				sel.setI_user(rs.getInt("i_user"));
 				sel.setCtnt(rs.getString("ctnt"));
 				sel.setR_dt(rs.getString("r_dt"));
-				sel.setUser_nm(rs.getString("nm"));
+				sel.setI_user(rs.getInt("i_user"));
+				sel.setUser_nm(rs.getString("user_nm"));
 				
 				list.add(sel);
 			}

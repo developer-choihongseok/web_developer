@@ -34,17 +34,36 @@
 		<%-- 댓글 리스트 --%>
 		<div style="margin-top: 10px;">
 			<table>
-				<tr>					
-					<th>댓글 목록</th>					
+				<tr>
+					<th>댓글 내용</th>
+					<th>작성자</th>
+					<th>작성일</th>
+					<th>비고</th>		
 				</tr>
 				<c:forEach items="${cmtList }" var="item">
 					<tr>
 						<td>${item.ctnt }</td>
+						<td>${item.user_nm }</td>
 						<td>${item.r_dt }</td>
+						<td>
+							<c:if test="${item.i_user == loginUser.i_user }">
+								<button onclick="clkCmtDel(${item.i_cmt}, ${data.i_board });">삭제</button>
+								<%-- <a href="cmt/del?i_cmt=${item.i_cmt }&i_board=${data.i_board}">
+									<button>삭제</button>
+								</a> --%>
+								<button>수정</button>
+							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
 	</div>
 </div>
+
+<script>
+	<c:if test="${msg != null}">
+		alert('${msg}');
+	</c:if>
+</script>
 

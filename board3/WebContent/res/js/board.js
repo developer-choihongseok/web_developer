@@ -20,3 +20,11 @@ function clkDel(i_board, typ){
 		location.href = `del?i_board=${i_board}&typ=${typ}`;
 	}
 }
+
+// 댓글 삭제 버튼 클릭
+function clkCmtDel(i_cmt, i_board){
+	if(confirm('삭제 하시겠습니까?')){
+		location.href = `cmt/del?i_cmt=${i_cmt}&i_board=${i_board}`;
+	}
+}
+

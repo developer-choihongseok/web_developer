@@ -15,16 +15,16 @@ public class BoardCmtRegSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int i_board = Utils.getIntParam(request, "i_board");
+//		int i_board = Utils.getIntParam(request, "i_board");
+//		
+//		String ctnt = request.getParameter("ctnt");
+//		
+//		BoardCmtSEL param = new BoardCmtSEL();
+//		param.setI_board(i_board);
+//		param.setCtnt(ctnt);
 		
-		String ctnt = request.getParameter("ctnt");
+		String url = BoardCmtService.reg(request);
 		
-		BoardCmtSEL param = new BoardCmtSEL();
-		param.setI_board(i_board);
-		param.setCtnt(ctnt);
-		
-		int result = BoardCmtService.cmtInsert(param);
-		
-		response.sendRedirect("detail?i_board=" + i_board);
+		response.sendRedirect(url);
 	}
 }

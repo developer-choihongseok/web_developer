@@ -25,19 +25,22 @@ public class BoardDetailSer extends HttpServlet {
 			return;
 		}
 		
+		int err = Utils.getIntParam(request, "err");
+		
+		switch(err) {
+		case 1:
+			request.setAttribute("err", "댓글 내용이 너무 깁니다..");
+			break;
+			
+		}
+		
 		// board.js 파일 가지고 온다.
 		// basic_temp.jsp에서 forEach구문을 보면 배열로 만들어 놓은게 하나하나씩 쓸려고 배열로 만들었다.
 		// 그리고 board.js파일을 적용시키고, 나중에 다른 .js파일을 만들 때마다 계속 추가할 것이다.
 		request.setAttribute("jsList", new String[]{"board"});
 		
-		int i_board = Utils.getIntParam(request, "i_board");
-		
-		BoardPARAM param = new BoardPARAM();
-		param.setI_board(i_board);
-		
 		BoardSEL data = BoardService.detail(request);
 		request.setAttribute("data", data);
-		request.setAttribute("cmtList", BoardCmtService.selBoardcmtList(request));
 		
 		Utils.forwardTemp(data.getTitle(), "temp/basic_temp", "board/bDetail", request, response);
 	}

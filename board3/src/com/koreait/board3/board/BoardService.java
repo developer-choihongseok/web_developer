@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.koreait.board3.board.cmt.BoardCmtService;
 import com.koreait.board3.common.SecurityUtils;
 import com.koreait.board3.common.Utils;
 import com.koreait.board3.db.BoardDAO;
@@ -105,8 +106,9 @@ public class BoardService {
 		BoardPARAM p = new BoardPARAM();
 		p.setI_board(i_board);
 			
-		return BoardDAO.selBoard(p);	// return i_board != 0 ? BoardDAO.selBoard(p) : null;
+		request.setAttribute("cmtList", BoardCmtService.selBoardcmtList(p));
 		
+		return BoardDAO.selBoard(p);	// return i_board != 0 ? BoardDAO.selBoard(p) : null;
 	}
 	
 	// 글 삭제

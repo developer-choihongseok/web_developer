@@ -8,10 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.koreait.board3.board.cmt.BoardCmtService;
 import com.koreait.board3.common.SecurityUtils;
 import com.koreait.board3.common.Utils;
-import com.koreait.board3.model.BoardPARAM;
 import com.koreait.board3.model.BoardSEL;
 
 @WebServlet("/board/detail")

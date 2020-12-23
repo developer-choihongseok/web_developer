@@ -98,3 +98,7 @@ header ul li a:hover:not(.active) {
 .pageContainer{
 	text-align: center;
 }
+
+section {
+	position: relative;		/* 기준이 부모가 될 것이다. */
+}

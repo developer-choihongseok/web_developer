@@ -28,3 +28,19 @@ function clkCmtDel(i_cmt, i_board){
 	}
 }
 
+// 댓글에서 수정버튼 클릭 > 수정 FORM 나타나게 처리
+function clkCmtMod(i_cmt){
+	/*console.log('i_cmt : ' + i_cmt);	// 연결이 잘 되었는지 체크하는 것이 좋다!!*/
+	var trForm = document.querySelector('#mod_' + i_cmt);
+	// bDetail.jsp에서 61번째 줄에 class 엘리먼트만 유일하게 접근할 때, classList로 접근!!
+	trForm.classList.remove('cmd_mod_form');
+	
+	console.log(trForm);
+}
+
+function clkCmtClose(i_cmt){
+	var trForm = document.querySelector('#mod_' + i_cmt);
+	trForm.classList.add('cmd_mod_form');	// push도 가능.
+	
+	console.log(trForm);
+}

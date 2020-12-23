@@ -7,10 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>${title }</title>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <link rel="stylesheet" href="/res/css/common.css?ver=5">
+<link rel="stylesheet" href="/res/css/board.css?ver=2">
 <c:forEach items="${jsList }" var="item">
 	<!-- defer는 맨 밑에 놔둔 효과, async는 화면을 안 느려지게 하는 효과 -->
-	<script defer type="text/javascript" src="/res/js/${item }.js?ver=12"></script>
+	<script defer type="text/javascript" src="/res/js/${item }.js?ver=13"></script>
 </c:forEach>
 <!-- /를 적으면 풀 경로를 적어줘야 한다!! -->
 <script defer type="text/javascript" src="/res/js/common.js"></script>

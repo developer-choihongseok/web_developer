@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.cmd_mod_form{
+	display: none;
+}
+
+#favoriteContainer{
+    position: absolute;
+    right: 650px;
+    top: 268px;
+    color: #e74c3c;
+    font-size: 30px;
+}
+
+#favoriteContainer > i{		/* > : 바로 밑에 있는 i라는 의미, 띄워쓰기를 해도 같다 */
+	cursor: pointer;
+}

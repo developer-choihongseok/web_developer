@@ -28,37 +28,66 @@
 			<form action="cmt/reg" method="post">
 				<input type="hidden" name="i_board" value="${data.i_board }">
 				댓글: <input type="text" name="ctnt">
-				<input type="submit" value="댓글쓰기">
+				<input type="submit" value="댓글쓰기"><br><br>
 			</form>
 		</div>
 		<%-- 댓글 리스트 --%>
 		<div style="margin-top: 10px;">
+			<b>댓글목록</b><br><br>
+			
 			<table>
 				<tr>
-					<th>댓글 내용</th>
-					<th>작성자</th>
-					<th>작성일</th>
-					<th>비고</th>		
+					<th width="150">댓글</th>
+					<th width="70">작성자</th>
+					<th width="150">작성일</th>
+					<th width="110">비고</th>		
 				</tr>
 				<c:forEach items="${cmtList }" var="item">
 					<tr>
-						<td>${item.ctnt }</td>
-						<td>${item.user_nm }</td>
-						<td>${item.r_dt }</td>
-						<td>
+						<td align="center">${item.ctnt }</td>
+						<td align="center">${item.user_nm }</td>
+						<td align="center">${item.r_dt }</td>
+						<td align="center">
 							<c:if test="${item.i_user == loginUser.i_user }">
 								<button onclick="clkCmtDel(${item.i_cmt}, ${data.i_board });">삭제</button>
-								<%-- <a href="cmt/del?i_cmt=${item.i_cmt }&i_board=${data.i_board}">
+						<%--	<a href="cmt/del?i_cmt=${item.i_cmt }&i_board=${data.i_board}">
 									<button>삭제</button>
-								</a> --%>
-								<button>수정</button>
+								</a> 	--%> 
+								<button onclick="clkCmtMod(${item.i_cmt});">수정</button>
 							</c:if>
 						</td>
 					</tr>
+					<c:if test="${item.i_user == loginUser.i_user }">
+						<tr id="mod_${item.i_cmt }" class="cmd_mod_form">
+							<td colspan="4">
+								<form action="cmt/mod" method="post">
+									<input type="hidden" name="i_board" value="${data.i_board }">
+									<input type="hidden" name="i_cmt" value="${item.i_cmt }">
+									<input type="text" name="ctnt" value="${item.ctnt }">
+									<input type="submit" value="수정">
+							<!--	<input type="button" value="닫기" onclick="clkCmtClose(${item.i_cmt});"> -->
+									<!-- 버튼은 기본 타입이 submit이다. 따라서, button을 줘야한다. -->
+									<button type="button" onclick="clkCmtClose(${item.i_cmt});">닫기</button>
+								</form>
+							</td>
+						</tr>
+					</c:if>
 				</c:forEach>
 			</table>
 		</div>
 	</div>
+	
+	<div id="favoriteContainer">
+		<c:choose>
+			<c:when test="${item.is_favorite == 1 }">
+				<i class="fas fa-heart"></i>
+			</c:when>
+			<c:otherwise>
+				<i class="far fa-heart"></i>
+			</c:otherwise>
+		</c:choose>
+	</div>
+	
 </div>
 
 <script>

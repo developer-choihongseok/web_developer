@@ -30,7 +30,6 @@ public class BoardCmtService {
 				+ " (i_board, i_user, ctnt) "
 				+ " VALUES(?, ?, ?)";
 		
-		
 		int result = BoardCmtDAO.executeUpdate(sql, new SQLInterUpdate() {
 			// 인터페이스를 객체화 한 것이 아니라, 구현한 것이다!!
 			@Override
@@ -47,6 +46,38 @@ public class BoardCmtService {
 		
 		if(result != 1) {
 			url += "&err=1";
+		}
+		return url;
+	}
+	
+	// 댓글 수정
+	public static String mod(HttpServletRequest request) {
+
+		int i_board = Utils.getIntParam(request, "i_board");
+		int i_cmt = Utils.getIntParam(request, "i_cmt");
+		int i_user = SecurityUtils.getLoginUserPK(request);
+		String ctnt = request.getParameter("ctnt");
+
+		String sql = " UPDATE t_board_cmt "
+				+ " SET ctnt = ? "
+				+ " WHERE i_cmt = ? AND i_user = ?";
+
+		int result = BoardCmtDAO.executeUpdate(sql, new SQLInterUpdate() {
+			// 인터페이스를 객체화 한 것이 아니라, 구현한 것이다!!
+			@Override
+			public void proc(PreparedStatement ps) throws SQLException {
+				ps.setString(1, ctnt);
+				ps.setInt(2, i_cmt);
+				ps.setInt(3, i_user);
+			}
+		});
+
+		// ../ : 한 칸 올라가는 방법
+		// 아니면 /board/detail 이렇게 해야한다.
+		String url = "../detail?i_board=" + i_board;
+
+		if (result != 1) {
+			url += "&err=2";
 		}
 		return url;
 	}

@@ -100,5 +100,6 @@ header ul li a:hover:not(.active) {
 }
 
 section {
+	/* top, right, bottom, left 속성을 사용해 위치 조절이 가능 */
 	position: relative;		/* 기준이 부모가 될 것이다. */
 }

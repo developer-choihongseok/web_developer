@@ -1,3 +1,5 @@
+'use strict'
+
 // 글 번호 클릭 시, 해당 url로 이동
 function clkArticle(i_board) {
 	var url = `detail?i_board=${i_board}`; 
@@ -38,9 +40,47 @@ function clkCmtMod(i_cmt){
 	console.log(trForm);
 }
 
+// 댓글에서 닫기버튼 클릭
 function clkCmtClose(i_cmt){
 	var trForm = document.querySelector('#mod_' + i_cmt);
 	trForm.classList.add('cmd_mod_form');	// push도 가능.
 	
 	console.log(trForm);
+}
+
+// 좋아요 버튼 클릭
+// 자바스크립트에서 함수도 객체로 보기(즉, 주소값을 갖고 있다!!)
+function toggleFavorite(i_board){
+	/*console.log('toggleFavorite called');*/
+	var fc = document.querySelector('#favoriteContainer');
+	// 1: 좋아요	0: 안 좋아요
+	// 임의로 받아오는 것은 getAttribute()로 받아와야 한다.
+	var state = fc.getAttribute('is_favorite');	// 문자열
+	console.log(state); // 좋아요 안누른 상태 -> 0이 나온다(기본값)
+	// 자동으로 정수로 변환
+	var state = 1 - state;	// 1 -> 0	0 -> 1
+	
+	// get방식 통신 방법
+	axios.get('/board/ajaxFavorite',{
+		params:{
+			// state : 1 -> 좋아요 누르지 X
+			// state : 0 -> 좋아요 누름
+			'state': state,	// 키 값 : value 값	
+			'i_board': i_board
+		}
+	}).then(function(res){	// 통신 성공,	then을 쓸 수 있는 건 promise 객체여서 쓸 수 있다.
+		console.log(res);
+		
+		if(res.data.result == 1){	// res에 있는 data객체에 접근 후, result 값 가져오기.
+			var iconClass = state == 1 ? 'fas' : 'far';
+			fc.innerHTML = `<i class="${iconClass} fa-heart"></i>`;	// 기존에 있던 것은 삭제가 되고, <i>태그가 들어간다.
+			fc.setAttribute('is_favorite', state);	// 반대 값이 들어간다.
+		}else{
+			alert('에러가 발생하였습니다.');
+		}
+	}).catch(function(err){	// 통신 실패
+		console.err('err 발생: ' + err)
+	});
+	
+	/*console.log(fc.getAttribute('is_favorite'));*/
 }

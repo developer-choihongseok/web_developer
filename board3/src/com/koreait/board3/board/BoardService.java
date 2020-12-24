@@ -130,5 +130,41 @@ public class BoardService {
 		});
 	}
 	
-	
+	// 좋아요 기능
+	public static String ajaxFavorite(HttpServletRequest request) {
+		
+		int result = 0;
+		
+		int state = Utils.getIntParam(request, "state");
+		int i_board = Utils.getIntParam(request, "i_board");
+		int i_user = SecurityUtils.getLoginUserPK(request);
+		
+		String sql = null;
+		
+		switch(state) {
+		case 0:	// 좋아요 해제(원래는 1)
+			sql = " DELETE FROM t_board_favorite "
+					+ " WHERE i_board = ? "
+					+ " AND i_user = ?";
+			break;
+		case 1:	// 좋아요 클릭(원래는 0)
+			sql = " INSERT INTO t_board_favorite "
+					+ "(i_board, i_user)"
+					+ "VALUES"
+					+ "(?,?)";
+			break;
+		}
+		
+		result = BoardDAO.executeUpdate(sql, new SQLInterUpdate() {
+			
+			@Override
+			public void proc(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, i_board);
+				ps.setInt(2, i_user);
+			}
+		});
+		
+		// 문제 발생 시 0이 넘어오고, 완료 시 1이 넘어온다.
+		return String.format("{\"result\": %d}", result);
+	}
 }

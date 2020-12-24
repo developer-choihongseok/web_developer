@@ -5,13 +5,13 @@
 }
 
 #favoriteContainer{
-    position: absolute;
-    right: 650px;
-    top: 268px;
+	/* position: static 속성을 가지고 있지 않은 부모를 기준으로 움직인다. 
+	만약 부모 중에 포지션이 relative, absolute, fixed인 태그가 없다면,
+	가장 위의 태그(body)가 기준이 된다. */
+    position: absolute;		/* 부모 엘리먼트에 구애 받지 않고, 자유로운 엘리먼트 배치 */
+    right: 650px;			/* 오른쪽에서 650px 떨어져야 한다는 의미 */
+    top: 268px;				/* 위에서 268px 떨어져야 한다는 의미 */
     color: #e74c3c;
     font-size: 30px;
-}
-
-#favoriteContainer > i{		/* > : 바로 밑에 있는 i라는 의미, 띄워쓰기를 해도 같다 */
-	cursor: pointer;
+    cursor: pointer;
 }

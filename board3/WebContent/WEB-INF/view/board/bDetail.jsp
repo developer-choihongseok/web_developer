@@ -77,9 +77,10 @@
 		</div>
 	</div>
 	
-	<div id="favoriteContainer">
+	<div id="favoriteContainer" is_favorite="${data.is_favorite}" onclick="toggleFavorite(${data.i_board });">
+	<%-- ${data.is_favorite} --%>
 		<c:choose>
-			<c:when test="${item.is_favorite == 1 }">
+			<c:when test="${data.is_favorite == 1 }">
 				<i class="fas fa-heart"></i>
 			</c:when>
 			<c:otherwise>
@@ -87,9 +88,9 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	<c:if test="${msg != null}">
 		alert('${msg}');

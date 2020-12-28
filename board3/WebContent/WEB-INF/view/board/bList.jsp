@@ -10,19 +10,18 @@
 		</a>
 	</div>
 	
-	<table>
+	<table border="1">
 		<thead>
 			<tr>
 				<th width="70">번호</th>
 				<th width="500">제목</th>
-				<th width="120">조회수</th>
-				<th width="100">작성일</th>
+				<th width="100">조회수</th>
+				<th width="180">작성일</th>
 				<th width="100">작성자</th>
 			</tr>
 		</thead>
-		<!-- list는 BoardService의 selBoardList()의 list이다. -->
+		<!-- list는 BoardService의 selBoardList()의 list -->
 		<c:forEach items="${list }" var="item">
-			<tbody>
 				<tr class="pointer" onclick="clkArticle(${item.i_board })">
 					<td align="center">${item.seq }</td>
 					<td align="center">${item.title }</td>
@@ -30,10 +29,10 @@
 					<td align="center">${item.r_dt }</td>
 					<td align="center">${item.nm }</td>
 				</tr>
-			</tbody>
 		</c:forEach>
 	</table>
 	
+	<!-- 페이징 -->
 	<div class="pageContainer">
 		<%-- 1부터 ${pageCnt }까지 자연수를 순차적으로 출력함. --%>
 		<c:forEach begin="1" end="${pageCnt }" var="i">

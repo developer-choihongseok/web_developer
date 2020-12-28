@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${title }</title>
-<script defer type="text/javascript" src="/res/js/join.js"></script>
+<title>${title }</title>	<!-- Utils에 있는 title -->
+<script defer src="/res/js/join.js?ver=2"></script>
 </head>
 <body>
 	<h2>회원가입</h2>
@@ -20,7 +20,7 @@
 					<input type="password" name="user_pw" placeholder="비밀번호 입력" required="required">
 				</div>
 				<div>
-					<input type="password" name="user_pw_chk" placeholder="비밀번호 확인" >
+					<input type="password" name="user_pw_chk" placeholder="비밀번호 확인" required="required">
 				</div>
 				<div>
 					<input type="text" name="nm" placeholder="이름 입력" required="required">

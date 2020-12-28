@@ -19,8 +19,7 @@ public class UserService {
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
 		String salt = SecurityUtils.getSalt();
-		// 암호화 된 PW
-		String encryptPw = SecurityUtils.getSecurePassword(user_pw, salt);
+		String encryptPw = SecurityUtils.getSecurePassword(user_pw, salt);	// 암호화 된 PW
 		String nm = request.getParameter("nm");
 		int gender = Utils.getIntParam(request, "gender");
 		String ph = request.getParameter("ph");
@@ -100,8 +99,8 @@ public class UserService {
 	}
 }
 
-// 2번째 방법
 /*
+// 2번째 방법
 class MySqlInter extends Object implements SQLInterUpdate{
 	
 	private UserModel p;

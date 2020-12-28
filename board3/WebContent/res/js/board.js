@@ -7,7 +7,6 @@ function clkArticle(i_board) {
 }
 
 // 지금은 사용 X, 혹시나 나중에 비속어가 있는지 체크하는 용도로 사용.
-// 제목 혹은 내용의 값이 없을 경우, 알람창 표시.
 function chk() {
 	var frm = document.querySelector('#frm');	// 없어도 실행 되는데, 확실하게 해주기 위함!!
 	
@@ -34,7 +33,7 @@ function clkCmtDel(i_cmt, i_board){
 function clkCmtMod(i_cmt){
 	/*console.log('i_cmt : ' + i_cmt);	// 연결이 잘 되었는지 체크하는 것이 좋다!!*/
 	var trForm = document.querySelector('#mod_' + i_cmt);
-	// bDetail.jsp에서 61번째 줄에 class 엘리먼트만 유일하게 접근할 때, classList로 접근!!
+	// bDetail.jsp에서 63번째 줄에 class 엘리먼트만 유일하게 접근할 때, classList로 접근!!
 	trForm.classList.remove('cmd_mod_form');
 	
 	console.log(trForm);
@@ -56,16 +55,14 @@ function toggleFavorite(i_board){
 	// 1: 좋아요	0: 안 좋아요
 	// 임의로 받아오는 것은 getAttribute()로 받아와야 한다.
 	var state = fc.getAttribute('is_favorite');	// 문자열
-	console.log(state); // 좋아요 안누른 상태 -> 0이 나온다(기본값)
+	console.log(state);
 	// 자동으로 정수로 변환
 	var state = 1 - state;	// 1 -> 0	0 -> 1
 	
 	// get방식 통신 방법
 	axios.get('/board/ajaxFavorite',{
 		params:{
-			// state : 1 -> 좋아요 누르지 X
-			// state : 0 -> 좋아요 누름
-			'state': state,	// 키 값 : value 값	
+			'state': state,	// Key : Value
 			'i_board': i_board
 		}
 	}).then(function(res){	// 통신 성공,	then을 쓸 수 있는 건 promise 객체여서 쓸 수 있다.
@@ -73,13 +70,13 @@ function toggleFavorite(i_board){
 		
 		if(res.data.result == 1){	// res에 있는 data객체에 접근 후, result 값 가져오기.
 			var iconClass = state == 1 ? 'fas' : 'far';
-			fc.innerHTML = `<i class="${iconClass} fa-heart"></i>`;	// 기존에 있던 것은 삭제가 되고, <i>태그가 들어간다.
+			fc.innerHTML = `<i class="${iconClass} fa-thumbs-up"></i>`;	// 기존에 있던 것은 삭제가 되고, <i>태그가 들어간다.
 			fc.setAttribute('is_favorite', state);	// 반대 값이 들어간다.
 		}else{
 			alert('에러가 발생하였습니다.');
 		}
 	}).catch(function(err){	// 통신 실패
-		console.err('err 발생: ' + err)
+		console.err('에러 발생: ' + err)
 	});
 	
 	/*console.log(fc.getAttribute('is_favorite'));*/

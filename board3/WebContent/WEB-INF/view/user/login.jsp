@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${title }</title>
+<title>${title }</title>	<!-- Utils에 있는 title -->
 </head>
 <body>
 	<h2>로그인 화면</h2>
@@ -23,7 +23,7 @@
 				</div>
 			</form>
 			
-			<div style="color:red;">${msg }</div>
+			<div style="color:red;">${msg }</div>	<!-- LoginSer.java의  msg -->
 			
 			<a href="/join">회원가입</a>
 		</div>

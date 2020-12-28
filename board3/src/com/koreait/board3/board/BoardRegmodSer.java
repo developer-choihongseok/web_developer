@@ -26,13 +26,15 @@ public class BoardRegmodSer extends HttpServlet {
 //		int typ = Utils.getIntParam(request, "typ");
 //		request.setAttribute("typ", typ);
 		
-//		int i_board = Utils.getIntParam(request, "i_board");	// 0: 글등록, 0이상이면 수정.
+//		int i_board = Utils.getIntParam(request, "i_board");	// 0: 글등록, 0이상: 수정
+//		
 //		if(i_board > 0) {
 //			request.setAttribute("data", BoardService.detail(request));
 //		}
 		
 		request.setAttribute("data", BoardService.detail(request));
 		// board.js 파일 가지고 온다.
+		// basic_temp.jsp에서 js 파일을 하나씩 쓸려고 배열로 만들었다.
 		request.setAttribute("jsList", new String[]{"board"});
 		
 		Utils.forwardTemp("등록/수정", "temp/basic_temp", "board/bRegmod", request, response);

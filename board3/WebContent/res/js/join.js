@@ -8,7 +8,7 @@ function joinChk(){
 	if(!reUserId.test(eleId.value)){
 		alert('아이디는 대/소 영문자와 숫자만 가능합니다.');
 		eleId.focus();
-		return false;
+		return false;	// 경고창 꺼짐
 	}
 	
 	var pw = joinfrm.user_pw;
@@ -17,8 +17,8 @@ function joinChk(){
 	/* !== : 값과 변수 타입까지 고려 */
 	if(pw.value !== pw_chk.value){
 		alert('비밀번호가 맞지 않습니다.');
-		pw.focus();
-		return false;
+		pw_chk.focus();
+		return false;	// 경고창 꺼짐
 	}
 	
 	var eleNm = joinfrm.nm;
@@ -27,6 +27,6 @@ function joinChk(){
 	if(!reNm.test(eleNm.value)){
 		alert('이름은 한글만 가능합니다.');
 		eleNm.focus();
-		return false;
+		return false;	// 경고창 꺼짐
 	}
 }

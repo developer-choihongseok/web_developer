@@ -11,25 +11,11 @@ html, body {
 	height: 100%;
 }
 
-a{
-	text-decoration: none;	/* 밑줄 생성 삭제 */
-}
-
-.pointer {
-	cursor: pointer;
-}
-
-tr.pointer:hover {
-	background-color: #c0c0c0;
-}
-
 #container {
 	width: 100%;
-	height: 100%;
-	/* 엘리먼트들의 크기나 위치를 쉽게 잡아주는 도구
-		조건: 부모와 자식이 꼭 있어야 하고, 부모한테 적어줘야 한다.*/
-	display: flex;
-	flex-direction: column;		/* 정렬방향을 바꿀 수 있고, 기본은 row */
+	height: 100%;	
+	display: flex;	/* 레이아웃 중앙 정렬이 매우 쉬워짐, 조건: 부모와 자식이 꼭 있어야 하고, 부모한테 적어줘야 한다.*/
+	flex-direction: column;		/* 정렬 방향을 바꿀 수 있고, 기본은 row */
 }
 
 header ul {
@@ -80,13 +66,29 @@ header ul li a:hover:not(.active) {
 }
 */
 
-.centerCont {
+section {
+	position: relative;		/* top, right, bottom, left 속성을 사용해 위치 조절이 가능, 기준은 부모가 될 것이다. */
+}
+
+a{
+	text-decoration: none;	/* 밑줄 생성 삭제 */
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+tr.pointer:hover {
+	background-color: #c0c0c0;
+}
+
+/* .centerCont {
 	width: 100%;
 	height: 100%;
 	display: flex;
-	justify-content: center;	/* 플렉스 요소는 플렉스 컨테이너의 가운데에서부터 배치 */
-	align-items: center;		/* 플렉스 요소는 플렉스 컨테이너의 가운데에 배치 */
-}
+	justify-content: center;	플렉스 요소는 플렉스 컨테이너의 가운데에서부터 배치
+	align-items: center;		플렉스 요소는 플렉스 컨테이너의 가운데에 배치
+} */
 
 #container section {
 	/* 사용가능한 공간은 각 항목에게 동일하게 분배되며, 
@@ -99,7 +101,6 @@ header ul li a:hover:not(.active) {
 	text-align: center;
 }
 
-section {
-	/* top, right, bottom, left 속성을 사용해 위치 조절이 가능 */
-	position: relative;		/* 기준이 부모가 될 것이다. */
+table{
+	margin-top: 10px;
 }

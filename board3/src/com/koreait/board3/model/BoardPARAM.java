@@ -30,6 +30,4 @@ public class BoardPARAM {
 	public void setI_user(int i_user) {
 		this.i_user = i_user;
 	}
-	
-	
 }

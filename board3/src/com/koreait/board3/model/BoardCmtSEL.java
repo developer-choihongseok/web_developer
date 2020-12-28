@@ -11,5 +11,4 @@ public class BoardCmtSEL extends BoardCmtModel{
 	public void setUser_nm(String user_nm) {
 		this.user_nm = user_nm;
 	}
-	
 }

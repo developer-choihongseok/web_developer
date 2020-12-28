@@ -3,10 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div>
-	<a href="list?typ=${data.typ }">돌아가기</a>
+	<a href="list?typ=${data.typ }">게시판으로 돌아가기</a>	<!-- BoardDetailSer.java의 data -->
 	
-	<c:if test="${data.i_user == loginUser.i_user }">
-		<button onclick="clkDel(${data.i_board}, ${data.typ });">삭제</button>
+	<c:if test="${data.i_user == loginUser.i_user }">	<!-- UserService.login의 loginUser -->
+		<button onclick="clkDel(${data.i_board}, ${data.typ });">
+			삭제
+		</button>
 		
 		<a href="regmod?typ=${data.typ }&i_board=${data.i_board }">
 			<button>수정</button>
@@ -33,21 +35,21 @@
 		</div>
 		<%-- 댓글 리스트 --%>
 		<div style="margin-top: 10px;">
-			<b>댓글목록</b><br><br>
+			<strong>댓글 목록</strong><br><br>
 			
-			<table>
+			<table border="1">
 				<tr>
-					<th width="150">댓글</th>
-					<th width="70">작성자</th>
-					<th width="150">작성일</th>
-					<th width="110">비고</th>		
+					<th width="170">댓글</th>
+					<th width="100">작성자</th>
+					<th width="170">작성일</th>
+					<th width="120">비고</th>		
 				</tr>
-				<c:forEach items="${cmtList }" var="item">
+				<c:forEach items="${cmtList }" var="item">	<!-- BoardService.java의 cmtList -->
 					<tr>
-						<td align="center">${item.ctnt }</td>
-						<td align="center">${item.user_nm }</td>
-						<td align="center">${item.r_dt }</td>
-						<td align="center">
+						<td align="center" bgcolor="#ffeaa7">${item.ctnt }</td>
+						<td align="center" bgcolor="#3498db">${item.user_nm }</td>
+						<td align="center" bgcolor="#95a5a6">${item.r_dt }</td>
+						<td align="center" bgcolor="#e84393">
 							<c:if test="${item.i_user == loginUser.i_user }">
 								<button onclick="clkCmtDel(${item.i_cmt}, ${data.i_board });">삭제</button>
 						<%--	<a href="cmt/del?i_cmt=${item.i_cmt }&i_board=${data.i_board}">
@@ -78,13 +80,13 @@
 	</div>
 	
 	<div id="favoriteContainer" is_favorite="${data.is_favorite}" onclick="toggleFavorite(${data.i_board });">
-	<%-- ${data.is_favorite} --%>
+		${data.is_favorite}
 		<c:choose>
 			<c:when test="${data.is_favorite == 1 }">
-				<i class="fas fa-heart"></i>
+				<i class="fas fa-thumbs-up"></i>
 			</c:when>
 			<c:otherwise>
-				<i class="far fa-heart"></i>
+				<i class="far fa-thumbs-up"></i>
 			</c:otherwise>
 		</c:choose>
 	</div>

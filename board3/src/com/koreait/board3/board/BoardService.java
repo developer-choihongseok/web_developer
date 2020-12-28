@@ -24,13 +24,12 @@ public class BoardService {
 		String ctnt = request.getParameter("ctnt");
 		int i_user = SecurityUtils.getLoginUserPK(request);
 		
-		// 글 등록
 		// IFNULL: 해당 필드의 값이 NULL을 반환할 때, 다른 값으로 출력할 수 있도록 하는 함수
 		//				-> c.f) oracle : nvl함수
 		// select문 해석: seq가 null이면 0이므로 +1을 한다. seq가 null이 아니면 max(seq) + 1 값 출력.
-		// max()를 넣어주지 않으면 여러 값들이 들어가기 때문에, 한 가지 값만 들어가야 한다.
+		// max()를 넣어주지 않으면 기존에 있는 여러 테이블의 갯수만큼 중복되서 테이블에 들어가기 때문에, 한 가지 값만 들어가야 한다.
 		// select문 특징: 여러 줄을 한 방에 넣을 수 있다!! 단,원본은 변하지 않는다!!
-		if(i_board == 0) {
+		if(i_board == 0) {	// 글 등록
 			String sql = " INSERT INTO t_board "
 					+ " (typ, seq, title, ctnt, i_user) "
 					+ " SELECT "
@@ -77,6 +76,7 @@ public class BoardService {
 	
 	// 글 목록 확인
 	public static void selBoardList(HttpServletRequest request) {
+		
 		int typ = Utils.getIntParam(request, "typ");
 		
 		BoardPARAM p = new BoardPARAM();
@@ -97,6 +97,7 @@ public class BoardService {
 	
 	// 글 읽기
 	public static BoardSEL detail(HttpServletRequest request) {
+		
 		int i_board = Utils.getIntParam(request, "i_board");
 		
 		if(i_board == 0) {
@@ -133,7 +134,7 @@ public class BoardService {
 	// 좋아요 기능
 	public static String ajaxFavorite(HttpServletRequest request) {
 		
-		int result = 0;
+		int result = 0;	// 기본 에러
 		
 		int state = Utils.getIntParam(request, "state");
 		int i_board = Utils.getIntParam(request, "i_board");

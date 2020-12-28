@@ -8,7 +8,7 @@ import java.sql.SQLException;
 /*
  Connection : DB연걸
  PreparedStatement : 쿼리문 실행 준비
- ResultSet : select문 결과
+ ResultSet : select문 결과, 테이블에 있는 필드에 접근하고 가져오는 메소드로 구성
 */
 public class DbUtils {
 		

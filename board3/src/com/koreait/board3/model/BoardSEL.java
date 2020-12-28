@@ -21,7 +21,4 @@ public class BoardSEL extends BoardModel{
 	public void setIs_favorite(int is_favorite) {
 		this.is_favorite = is_favorite;
 	}
-	
-	
-	
 }

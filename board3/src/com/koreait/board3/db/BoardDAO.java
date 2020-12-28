@@ -69,6 +69,7 @@ public class BoardDAO extends CommonDAO{
 	
 	// 해당 글 내용 읽기
 	public static BoardSEL selBoard(BoardPARAM param) {
+		
 		BoardSEL vo = null;
 			
 		Connection con = null;

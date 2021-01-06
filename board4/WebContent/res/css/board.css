@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+.cmd_mod_form{
+	display: none;
+}
+
+#favoriteContainer{
+    position: absolute;		/* 부모 엘리먼트에 구애 받지 않고, 자유로운 엘리먼트 배치 */
+    right: 650px;			/* 오른쪽에서 650px 떨어져야 한다는 의미 */
+    top: 268px;				/* 위에서 268px 떨어져야 한다는 의미 */
+    color: #0000ff;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/*
+ position: static 속성을 가지고 있지 않은 부모를 기준으로 움직인다. 
+  만약 부모 중에 포지션이 relative, absolute, fixed인 태그가 없다면,
+  가장 위의 태그(body)가 기준이 된다. 
+*/

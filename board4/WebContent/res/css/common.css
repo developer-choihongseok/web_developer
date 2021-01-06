@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+* {
+	box-sizing: border-box;	 /* 테두리를 포함한 크기를 지정 */
+}
+
+html, body {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#container {
+	width: 100%;
+	height: 100%;	
+	display: flex;	/* 레이아웃 중앙 정렬이 매우 쉬워짐, 조건: 부모와 자식이 꼭 있어야 하고, 부모한테 적어줘야 한다.*/
+	flex-direction: column;		/* 정렬 방향을 바꿀 수 있고, 기본은 row */
+}
+
+header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #008040;
+}
+
+header ul:after{
+    content:'';
+    display: block;
+    clear:both;		/* 왼쪽, 오른쪽 모두 붙는 float 정렬을 취소한다. */
+}
+
+header li {
+	float: left;
+	width: 200px;
+	height: 65px;
+	line-height: 35px;
+}
+
+header li:hover {
+	background-color: #0000ff;
+}
+
+/* 안에~있는 -> 띄어쓰기로 표현 */
+header li:hover a{
+	color: #000000;
+}
+
+header ul li {
+    float: left;
+}
+
+header ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;	/* 상하 14px, 좌우 16px */
+    font-weight: 900;
+    font-size: 16px;
+}
+
+/*
+header ul li a:hover:not(.active) {
+    background-color: #111;
+}
+*/
+
+section {
+	position: relative;		/* top, right, bottom, left 속성을 사용해 위치 조절이 가능, 기준은 부모가 될 것이다. */
+}
+
+a{
+	text-decoration: none;	/* 밑줄 생성 삭제 */
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+tr.pointer:hover {
+	background-color: #c0c0c0;
+}
+
+/* .centerCont {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;	플렉스 요소는 플렉스 컨테이너의 가운데에서부터 배치
+	align-items: center;		플렉스 요소는 플렉스 컨테이너의 가운데에 배치
+} */
+
+#container section {
+	/* 사용가능한 공간은 각 항목에게 동일하게 분배되며, 
+	      각 항목은 주축을 따라 분배받은 값만큼 사이즈를 늘려 공간을 차지 */
+	flex-grow: 1;
+	padding: 20px;
+}
+
+.pageContainer{
+	text-align: center;
+}
+
+table{
+	margin-top: 10px;
+}

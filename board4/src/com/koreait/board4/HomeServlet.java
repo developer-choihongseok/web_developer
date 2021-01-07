@@ -28,7 +28,3 @@ public class HomeServlet extends HttpServlet {
 		}
 	}
 }
-
-/*
- .korea 붙은 것은 단계가 들어가든 안 들어가든 HomeServlet이 잡을 것이다.
-*/

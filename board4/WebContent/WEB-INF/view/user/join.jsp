@@ -12,7 +12,7 @@
 	
 	<div>
 		<div>
-			<form action="/join" method="post" id="joinfrm" onsubmit="return joinChk();">
+			<form action="/user/joinProc.korea" method="post" id="joinfrm" onsubmit="return joinChk();">
 				<div>
 					<input type="text" name="user_id" placeholder="아이디 입력" required="required" autofocus="autofocus">
 				</div>
@@ -42,8 +42,6 @@
 					<input type="submit" value="회원가입">
 				</div>
 			</form>
-			
-			<a href="/login">로그인 화면</a>
 		</div>
 	</div>
 </body>

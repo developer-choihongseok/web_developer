@@ -25,7 +25,7 @@
 			
 			<div style="color:red;">${msg }</div>	<!-- LoginSer.java의  msg -->
 			
-			<a href="/join">회원가입</a>
+			<a href="/user/join.korea">회원가입</a>
 		</div>
 	</div>
 </body>

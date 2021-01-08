@@ -97,4 +97,11 @@ public class UserController {
 		// 회원가입 완료되면 로그인 화면으로 이동.
 		response.sendRedirect("/user/login.korea");
 	}
+	
+	public void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession hs = request.getSession();
+		hs.invalidate();
+		
+		response.sendRedirect("/user/login.korea");
+	}
 }

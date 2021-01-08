@@ -1,12 +1,14 @@
 package com.koreait.board4;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.koreait.board4.common.SecurityUtils;
 import com.koreait.board4.db.CommonDAO;
 
 public class Controller {
@@ -27,17 +29,18 @@ public class Controller {
 		
 		String[] urlArr = request.getRequestURI().split("/");	// / 기준으로 배열을 만들겠다는 의미.
 //		System.out.println(urlArr.length);
+		System.out.println(Arrays.toString(urlArr));	// 배열 내용 출력.
 		
 		// 메뉴 리스트 가져오기
 		ServletContext application = request.getServletContext();
 		
 		if(application.getAttribute("menus") == null) {
-			application.setAttribute("menus", CommonDAO.selManageBoardList());
+			application.setAttribute("menus", CommonDAO.selManageBoardList());	// basic_temp.jsp에서 쓰인다.
 		}
 		
 		// /user/(login..).korea	-> / : 0번방, user : 1번방, login.korea : 2번방
 		switch(urlArr[1]) {
-		case "user":
+		case "user":	// 로그인 영역
 			switch(urlArr[2]) {
 			case "login.korea":
 				uCont.login(request, response);
@@ -51,10 +54,13 @@ public class Controller {
 			case "joinProc.korea":
 				uCont.joinProc(request, response);
 				return;
+			case "logout.korea":
+				uCont.logout(request, response);
+				return;
 			}
 		break;
 		
-		case "board":
+		case "board":	// 게시판 영역
 			switch(urlArr[2]) {
 			case "list.korea":
 				bCont.list(request, response);
@@ -62,6 +68,23 @@ public class Controller {
 			}
 		break;
 		}
-		goToErr(request, response);
+		
+		if(SecurityUtils.getLoginUserPK(request) > 0) {	// 로그인이 되어있는 상태
+			switch(urlArr[1]) {
+			case "board":
+				switch(urlArr[2]) {
+				case "reg.korea":
+					bCont.reg(request, response);
+					return;
+				case "regProc.korea":	// 글 쓰기
+					bCont.regProc(request, response);
+					return;
+				case "modProc.korea":	// 글 수정
+					bCont.modProc(request, response);
+					return;
+				}
+			}
+		}
+		goToErr(request, response);	// 로그인이 안되어 있다면, 에러 띄우기.
 	}
 }

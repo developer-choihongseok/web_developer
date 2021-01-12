@@ -4,10 +4,10 @@
   
 <h1>${data == null ? '글 등록' : '글 수정' }</h1>		<!-- BoardRegmodSer.java의 data -->
 
-<form action="/board/${param.i_board == null ? 'reg.korea' : 'mod.korea'}" method="post" id="frm">
+<form action="/board/${param.i_board == null ? 'regProc.korea' : 'modProc.korea'}" method="post" id="frm">
 	<!-- param은 쿼리스트링에 있는 값. -->
+	<input type="hidden" name="i_board" value="${param.i_board }">
 	<input type="hidden" name="typ" value="${param.typ }">
-	<input type="hidden" name="i_board" value="${data.i_board }">
 	
 	<div>
 		제목: <input type="text" name="title" value="${data.title }" required="required" autofocus="autofocus">

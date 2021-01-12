@@ -65,16 +65,23 @@ public class Controller {
 			case "list.korea":
 				bCont.list(request, response);
 				return;
+			case "detail.korea":
+				bCont.detail(request, response);
+				return;
 			}
 		break;
 		}
 		
-		if(SecurityUtils.getLoginUserPK(request) > 0) {	// 로그인이 되어있는 상태
+		// 로그인이 되어있는 상태
+		if(SecurityUtils.getLoginUserPK(request) > 0) {
 			switch(urlArr[1]) {
 			case "board":
 				switch(urlArr[2]) {
 				case "reg.korea":
 					bCont.reg(request, response);
+					return;
+				case "mod.korea":
+					bCont.mod(request, response);
 					return;
 				case "regProc.korea":	// 글 쓰기
 					bCont.regProc(request, response);

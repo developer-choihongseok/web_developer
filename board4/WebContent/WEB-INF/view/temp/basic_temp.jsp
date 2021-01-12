@@ -27,7 +27,6 @@
 					<li>${loginUser.nm }님 환영합니다.</li>
 					<li><a href="/user/logout.korea">로그아웃</a></li>
 				</c:if>
-				
 				<!-- TODO : 메뉴 뿌리기 -->
 				<c:forEach items="${menus }" var="item">
 					<li>

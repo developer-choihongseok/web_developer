@@ -24,9 +24,12 @@ public class UserDAO extends CommonDAO{
 			
 			rs = ps.executeQuery();
 			
+			// 레코드가 1개라도 있으면,
+			// 조회한 레크드의 각 칼럼 값을 받아 와서, 각 칼럼 값을 다시 UserModel 객체의 속성에 설정.
 			if(rs.next()) {	// true -> 레코드가 1개 있었다는 말!
 				UserModel um = new UserModel();
 				
+				// 첫번째 행에 대한 DB 컬렴명에 해당하는 값들을 가지고 온다.
 				um.setI_user(rs.getInt("i_user"));
 				um.setUser_pw(rs.getString("user_pw"));
 				um.setSalt(rs.getString("salt"));

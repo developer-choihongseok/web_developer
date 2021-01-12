@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%-- functions : 문자열을 처리하는 함수 제공 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div>
@@ -28,7 +29,7 @@
 						<th width="100">좋아요</th>
 					</tr>
 				</thead>
-				<!-- list는 BoardService의 selBoardList()의 list -->
+				<!-- list는 BoardController의 list 메서드에서 사용 -->
 				<c:forEach items="${list }" var="item">
 					<tr class="pointer" onclick="clkArticle(${item.i_board })">
 						<td align="center">${item.seq }</td>

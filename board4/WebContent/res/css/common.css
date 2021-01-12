@@ -39,7 +39,7 @@ header ul:after{
 
 header li {
 	float: left;
-	width: 200px;
+	width: 180px;
 	height: 65px;
 	line-height: 35px;
 }
@@ -55,6 +55,7 @@ header li:hover a{
 
 header ul li {
     float: left;
+    border: 1px solid;
 }
 
 header ul li a {
@@ -100,7 +101,7 @@ tr.pointer:hover {
 	/* 사용가능한 공간은 각 항목에게 동일하게 분배되며, 
 	      각 항목은 주축을 따라 분배받은 값만큼 사이즈를 늘려 공간을 차지 */
 	flex-grow: 1;
-	padding: 20px;
+	padding: 10px;
 }
 
 .pageContainer{

@@ -18,7 +18,7 @@
 	<div style="margin-top: 20px;">
 		<div>번호 : ${data.seq }</div>
 		<div>조회수 : ${data.hits }</div>
-		<div>작성자: ${data.nm }</div>
+		<div>작성자: ${data.writer_nm }</div>
 		<div>제목 : ${data.title }</div>
 		<div>작성일 : ${data.r_dt }</div>
 		<div>내용: ${data.ctnt }</div>

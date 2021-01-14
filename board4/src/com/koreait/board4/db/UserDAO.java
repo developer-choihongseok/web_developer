@@ -11,7 +11,13 @@ public class UserDAO extends CommonDAO{
 	// 로그인
 	public static UserModel selUser(UserModel p) {
 		
-		String sql = "SELECT i_user, user_pw, salt, nm FROM t_user WHERE user_id = ?";
+		String sql = "SELECT * FROM t_user WHERE ";
+		
+		if(p.getUser_id() != null) {
+			sql += " user_id = ?";			
+		} else if(p.getI_user() > 0) {
+			sql += " i_user = ?";
+		}
 		
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -20,7 +26,12 @@ public class UserDAO extends CommonDAO{
 		try {
 			con = DbUtils.getCon();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, p.getUser_id());
+			
+			if(p.getUser_id() != null) {	// 담지 않았다.
+				ps.setString(1, p.getUser_id());
+			}else if(p.getI_user() > 0){	// 담았다.
+				ps.setInt(1, p.getI_user());
+			}
 			
 			rs = ps.executeQuery();
 			
@@ -31,9 +42,14 @@ public class UserDAO extends CommonDAO{
 				
 				// 첫번째 행에 대한 DB 컬렴명에 해당하는 값들을 가지고 온다.
 				um.setI_user(rs.getInt("i_user"));
+				um.setUser_id(rs.getString("user_id"));
 				um.setUser_pw(rs.getString("user_pw"));
 				um.setSalt(rs.getString("salt"));
 				um.setNm(rs.getString("nm"));
+				um.setGender(rs.getInt("gender"));
+				um.setPh(rs.getString("ph"));
+				um.setR_dt(rs.getString("r_dt"));
+				um.setProfile_img(rs.getString("profile_img"));
 				
 				return um;
 			}

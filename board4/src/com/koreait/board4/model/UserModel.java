@@ -10,6 +10,7 @@ public class UserModel {
 	private String nm;
 	private int gender;
 	private String ph;
+	private String profile_img;
 	private String r_dt;
 	private String m_dt;
 	
@@ -54,6 +55,12 @@ public class UserModel {
 	}
 	public void setPh(String ph) {
 		this.ph = ph;
+	}
+	public String getProfile_img() {
+		return profile_img;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
 	}
 	public String getR_dt() {
 		return r_dt;

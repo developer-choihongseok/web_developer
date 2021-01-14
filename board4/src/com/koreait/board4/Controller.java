@@ -75,6 +75,17 @@ public class Controller {
 		// 로그인이 되어있는 상태
 		if(SecurityUtils.getLoginUserPK(request) > 0) {
 			switch(urlArr[1]) {
+			case "user":
+				switch(urlArr[2]) {
+				case "profile.korea":
+					uCont.profile(request, response);
+					return;
+				case "profileUpload.korea":
+					uCont.profileUpload(request, response);
+					return;
+				}
+			break;
+				
 			case "board":
 				switch(urlArr[2]) {
 				case "reg.korea":
@@ -93,6 +104,7 @@ public class Controller {
 					bCont.ajaxFavorite(request, response);
 					return;
 				}
+			break;
 			}
 		}
 		goToErr(request, response);	// 로그인이 안되어 있다면, 에러 띄우기.

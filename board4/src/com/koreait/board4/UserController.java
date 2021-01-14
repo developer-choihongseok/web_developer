@@ -1,8 +1,10 @@
 package com.koreait.board4;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,8 @@ import com.koreait.board4.common.Utils;
 import com.koreait.board4.db.SQLInterUpdate;
 import com.koreait.board4.db.UserDAO;
 import com.koreait.board4.model.UserModel;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class UserController {
 	// 로그인 페이지 띄우는 용도 -> Get방식
@@ -41,8 +45,13 @@ public class UserController {
 		String encryptPw = SecurityUtils.getSecurePassword(user_pw, loginUser.getSalt());
 		
 		if(encryptPw.equals(loginUser.getUser_pw())) {	// 성공
+			
 			loginUser.setSalt(null);
 			loginUser.setUser_pw(null);
+			loginUser.setPh(null);
+			loginUser.setR_dt(null);
+			loginUser.setProfile_img(null);
+			loginUser.setUser_id(null);
 			
 			HttpSession session = request.getSession();	// 세션 얻어오는 방법
 			session.setAttribute("loginUser", loginUser);	// basic_temp.jsp에서 쓰인다.
@@ -103,5 +112,64 @@ public class UserController {
 		hs.invalidate();
 		
 		response.sendRedirect("/user/login.korea");
+	}
+	
+	// 프로필 화면
+	public void profile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		UserModel param = new UserModel();
+		param.setI_user(SecurityUtils.getLoginUserPK(request));
+		
+		request.setAttribute("data", UserDAO.selUser(param));
+		Utils.forwardTemp("프로필", "temp/basic_temp", "user/profile", request, response);
+	}
+	
+	// 이미지 업로드 Proc
+	public void profileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int i_user = SecurityUtils.getLoginUserPK(request);
+		// C:\study\chs_eclipse\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\board4\res\img -> 여기에 이미지 파일이 들어간다!!
+		String savePath = request.getServletContext().getRealPath("/res/img/" + i_user);	// 실제 소스 파일에 들어오지 않는다.
+		
+		File folder = new File(savePath);
+		
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
+		
+		int sizeLimit = 104_857_600;	// 100 * 1024 * 1024 : 100MB 제한
+		
+		try {
+			MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
+			
+			Enumeration files = multi.getFileNames();	// Enumeration : Map과 비슷.
+			
+			if(files.hasMoreElements()) {
+				String eleName = (String)files.nextElement();
+//				System.out.println(eleName);	// 중복된 파일이 없으면 문제가 없다.
+				
+				// 실제로 저장되는 파일 이름
+				String fileNm = multi.getFilesystemName(eleName);
+				System.out.println("fileNm: " + fileNm);
+				
+//				String fileType = multi.getContentType(eleName);
+//				System.out.println("fileType:"+ fileType);
+				
+				String sql = " UPDATE t_user SET profile_img = ? "
+						+ " WHERE i_user = ?";
+				
+				UserDAO.executeUpdate(sql, new SQLInterUpdate() {
+					
+					@Override
+					public void proc(PreparedStatement ps) throws SQLException {
+						ps.setString(1, fileNm);
+						ps.setInt(2, i_user);
+					}
+				});
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		response.sendRedirect("/user/profile.korea");
 	}
 }

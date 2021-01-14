@@ -97,8 +97,7 @@ public class BoardController {
 		
 		String sql = "INSERT INTO t_board "
 				+ " (typ, seq, title, ctnt, i_user) "
-				+ " SELECT "
-				+ " ?, IFNULL(MAX(seq), 0) + 1, ?, ?, ?"
+				+ " SELECT ?, IFNULL(MAX(seq), 0) + 1, ?, ?, ? "
 				+ " FROM t_board "
 				+ " WHERE typ = ?";
 		
@@ -107,8 +106,8 @@ public class BoardController {
 			@Override
 			public void proc(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, typ);
-				ps.setNString(2, title);
-				ps.setNString(3, ctnt);
+				ps.setString(2, title);
+				ps.setString(3, ctnt);
 				ps.setInt(4, writerI_user);
 				ps.setInt(5, typ);
 			}
@@ -138,8 +137,7 @@ public class BoardController {
 		System.out.println("i_board: " + i_board);
 		
 		// 1 : insert문
-		String sql = " INSERT INTO t_board_favorite (i_board, i_user) "
-				+ " VALUES(?, ?) ";
+		String sql = " INSERT INTO t_board_favorite (i_board, i_user) VALUES(?, ?) ";
 		
 		if(state == 0) {
 			sql = " DELETE FROM t_board_favorite WHERE i_board = ? AND i_user = ? ";

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>${title }</title>
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-<link rel="stylesheet" href="/res/css/common.css?ver=5">
+<link rel="stylesheet" href="/res/css/common.css?ver=6">
 <link rel="stylesheet" href="/res/css/board.css?ver=5">
 <!-- js 파일을 배열로 전달 -->
 <c:forEach items="${jsList }" var="item">
@@ -29,7 +29,7 @@
 				</c:if>
 				<!-- TODO : 메뉴 뿌리기 -->
 				<c:forEach items="${menus }" var="item">
-					<li>
+					<li class="${item.typ == param.typ ? 'selectedBoard' : '' }">
 						<a href="/board/list.korea?typ=${item.typ }">
 							${item.nm }
 						</a>

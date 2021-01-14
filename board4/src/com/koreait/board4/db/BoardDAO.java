@@ -13,7 +13,7 @@ public class BoardDAO extends CommonDAO{
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = " SELECT A.i_board, A.seq, A.title, A.ctnt, A.r_dt, A.hits "
+		String sql = " SELECT A.i_board, A.typ, A.seq, A.title, A.ctnt, A.r_dt, A.hits "
 				+ " , B.i_user, IFNULL(B.nm, '탈퇴회원') AS writer_nm "
 				+ " , IFNULL(C.favorite_cnt, 0) AS favorite_cnt "
 				+ " , CASE WHEN D.i_board IS NULL THEN 0 ELSE 1 END AS is_favorite"
@@ -42,6 +42,7 @@ public class BoardDAO extends CommonDAO{
 				BoardSEL vo = new BoardSEL();
 				
 				vo.setI_board(rs.getInt("i_board"));
+				vo.setTyp(rs.getInt("typ"));
 				vo.setSeq(rs.getInt("seq"));
 				vo.setTitle(rs.getString("title"));
 				vo.setCtnt(rs.getNString("ctnt"));
@@ -120,5 +121,4 @@ public class BoardDAO extends CommonDAO{
 		
 		return list;	// 조회한 레코드의 개수만큼 BoardSEL 객체를 저장한 ArrayList를 반환.
 	}
-	
 }

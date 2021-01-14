@@ -24,6 +24,10 @@ html, body {
 	align-items: center;		/* 수직정렬 */
 }
 
+.selectedBoard{	/* 게시판 목록 배경색 지정 - 어떤 게시판을 보고있는지 확인용*/
+	background: #e74c3c;
+}
+
 header ul {
     list-style-type: none;
     margin: 0;

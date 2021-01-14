@@ -60,7 +60,7 @@ function toggleFavorite(i_board){
 	var state = 1 - state;	// 1 -> 0	0 -> 1
 	
 	// get방식 통신 방법
-	axios.get('/board/ajaxFavorite',{
+	axios.get('/board/ajaxFavorite.korea',{
 		params:{
 			'state': state,	// Key : Value
 			'i_board': i_board
@@ -70,7 +70,7 @@ function toggleFavorite(i_board){
 		
 		if(res.data.result == 1){	// res에 있는 data객체에 접근 후, result 값 가져오기.
 			var iconClass = state == 1 ? 'fas' : 'far';
-			fc.innerHTML = `<i class="${iconClass} fa-thumbs-up"></i>`;	// 기존에 있던 것은 삭제가 되고, <i>태그가 들어간다.
+			fc.innerHTML = `<i class="${iconClass} fa-thumbs-up"></i>`;	// 기존에 있던 태그는 모두 지우고, 바꿔치기.
 			fc.setAttribute('is_favorite', state);	// 반대 값이 들어간다.
 		}else{
 			alert('에러가 발생하였습니다.');

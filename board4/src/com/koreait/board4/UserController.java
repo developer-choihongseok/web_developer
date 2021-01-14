@@ -47,7 +47,7 @@ public class UserController {
 			HttpSession session = request.getSession();	// 세션 얻어오는 방법
 			session.setAttribute("loginUser", loginUser);	// basic_temp.jsp에서 쓰인다.
 			
-			response.sendRedirect("/board/list.korea");
+			response.sendRedirect("/board/list.korea?typ=1");
 			
 		}else {	// 비밀번호 틀림
 			request.setAttribute("msg", "비밀번호를 확인해 주세요.");

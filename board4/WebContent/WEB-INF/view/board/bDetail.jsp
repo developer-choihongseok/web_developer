@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div>
-	<a href="list?typ=${data.typ }">게시판으로 돌아가기</a>	<!-- BoardDetailSer.java의 data -->
+	<a href="/board/list.korea?typ=${data.typ }">게시판으로 돌아가기</a>	<!-- BoardDetailSer.java의 data -->
 	
 	<c:if test="${data.i_user == loginUser.i_user }">	<!-- UserService.login의 loginUser -->
 		<button onclick="clkDel(${data.i_board}, ${data.typ });">
@@ -25,14 +25,17 @@
 	</div>
 	
 	<div style="margin-top: 20px;">
-		<%-- 댓글 쓰는 부분 --%>
-		<div>
-			<form action="cmt/reg" method="post">
-				<input type="hidden" name="i_board" value="${data.i_board }">
-				댓글: <input type="text" name="ctnt">
-				<input type="submit" value="댓글쓰기"><br><br>
-			</form>
-		</div>
+		<c:if test="${loginUser != null }">
+			<%-- 댓글 쓰는 부분 --%>
+			<div>
+				<form action="cmt/reg" method="post">
+					<input type="hidden" name="i_board" value="${data.i_board }">
+					댓글: <input type="text" name="ctnt">
+					<input type="submit" value="댓글쓰기"><br><br>
+				</form>
+			</div>
+		</c:if>
+		
 		<%-- 댓글 리스트 --%>
 		<div style="margin-top: 10px;">
 			<strong>댓글 목록</strong><br><br>
@@ -79,20 +82,21 @@
 		</div>
 	</div>
 	
-	<div id="favoriteContainer" is_favorite="${data.is_favorite}" onclick="toggleFavorite(${data.i_board });">
-		${data.is_favorite}
-		<c:choose>
-			<c:when test="${data.is_favorite == 1 }">
-				<i class="fas fa-thumbs-up"></i>
-			</c:when>
-			<c:otherwise>
-				<i class="far fa-thumbs-up"></i>
-			</c:otherwise>
-		</c:choose>
-	</div>
+	<c:if test="${loginUser != null }">
+		<div id="favoriteContainer" is_favorite="${data.is_favorite}" onclick="toggleFavorite(${data.i_board });">
+			<%-- ${data.is_favorite} --%>
+			<c:choose>
+				<c:when test="${data.is_favorite == 1 }">
+					<i class="fas fa-thumbs-up"></i>
+				</c:when>
+				<c:otherwise>
+					<i class="far fa-thumbs-up"></i>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</c:if>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 	<c:if test="${msg != null}">
 		alert('${msg}');

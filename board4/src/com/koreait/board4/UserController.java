@@ -46,12 +46,12 @@ public class UserController {
 		
 		if(encryptPw.equals(loginUser.getUser_pw())) {	// 성공
 			
+			loginUser.setUser_id(null);
 			loginUser.setSalt(null);
 			loginUser.setUser_pw(null);
 			loginUser.setPh(null);
-			loginUser.setR_dt(null);
 			loginUser.setProfile_img(null);
-			loginUser.setUser_id(null);
+			loginUser.setR_dt(null);
 			
 			HttpSession session = request.getSession();	// 세션 얻어오는 방법
 			session.setAttribute("loginUser", loginUser);	// basic_temp.jsp에서 쓰인다.
@@ -119,57 +119,114 @@ public class UserController {
 		UserModel param = new UserModel();
 		param.setI_user(SecurityUtils.getLoginUserPK(request));
 		
-		request.setAttribute("data", UserDAO.selUser(param));
+		request.setAttribute("data", UserDAO.selUser(param));	// data : profile.jsp에서 사용.
+		request.setAttribute("jsList", new String[] {"axios.min", "user"});
+		
 		Utils.forwardTemp("프로필", "temp/basic_temp", "user/profile", request, response);
 	}
 	
 	// 이미지 업로드 Proc
+	// throws가 우선 순위가 try-catch문 보다 높으므로, try-catch문을 삭제하였다.
 	public void profileUpload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		int i_user = SecurityUtils.getLoginUserPK(request);
 		// C:\study\chs_eclipse\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\board4\res\img -> 여기에 이미지 파일이 들어간다!!
 		String savePath = request.getServletContext().getRealPath("/res/img/" + i_user);	// 실제 소스 파일에 들어오지 않는다.
+		System.out.println(savePath);
 		
 		File folder = new File(savePath);
 		
-		if(!folder.exists()) {
-			folder.mkdirs();
-		}
+		// 파일을 삭제 한다면... 방법!!
+//		File imgFile = new File(savePath + "/파일명.jpg");
+//		
+//		if(imgFile.exists()) {
+//			imgFile.delete();
+//		}
 		
+		// 기존에 이미지가 있었다면 삭제 처리, 없었다면 폴더 생성.
+		if(folder.exists()) {
+			File[] folder_list = folder.listFiles();
+			
+			for(File file : folder_list) {
+				if(file.isFile()) {
+					file.delete();
+				}
+			}
+			folder.delete();
+		}
+		folder.mkdirs();
+
 		int sizeLimit = 104_857_600;	// 100 * 1024 * 1024 : 100MB 제한
 		
-		try {
-			MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
+		// DefaultFileRenamePolicy() : 파일 이름이 중복 될 경우 , 파일 이름을 rename(_1 ..) 해주는 역할을 한다.
+		MultipartRequest multi = new MultipartRequest(request, savePath, sizeLimit, "utf-8", new DefaultFileRenamePolicy());
 			
-			Enumeration files = multi.getFileNames();	// Enumeration : Map과 비슷.
+		// 전송된 파일 타입의 파라미터 이름들을 Enumeration타입으로 반환 -> 파일 이름 얻어오기
+		// Enumeration : Map과 비슷.
+		Enumeration files = multi.getFileNames();
 			
-			if(files.hasMoreElements()) {
-				String eleName = (String)files.nextElement();
-//				System.out.println(eleName);	// 중복된 파일이 없으면 문제가 없다.
+		// 한 사람당 사진 1개만 올릴 수 있게 하였기 떄문에, if문을 사용.
+		// 여러 사진을 올릴려면, while문을 사용하고 sql문이 INSERT문으로 바꿔야 한다.
+		if(files.hasMoreElements()) {
+			// input에 설정해 놓은 name.
+			String eleName = (String)files.nextElement();
+//			System.out.println(eleName);	// 중복된 파일이 없으면 문제가 없다.
 				
-				// 실제로 저장되는 파일 이름
-				String fileNm = multi.getFilesystemName(eleName);
-				System.out.println("fileNm: " + fileNm);
+			// 실제로 저장되는 파일 이름
+			String fileNm = multi.getFilesystemName(eleName);
+			System.out.println("fileNm: " + fileNm);
+			
+			// 파일 타입
+//			String fileType = multi.getContentType(eleName);
+//			System.out.println("fileType:"+ fileType);
 				
-//				String fileType = multi.getContentType(eleName);
-//				System.out.println("fileType:"+ fileType);
-				
-				String sql = " UPDATE t_user SET profile_img = ? "
+			String sql = " UPDATE t_user SET profile_img = ? "
 						+ " WHERE i_user = ?";
 				
-				UserDAO.executeUpdate(sql, new SQLInterUpdate() {
+			UserDAO.executeUpdate(sql, new SQLInterUpdate() {
 					
-					@Override
-					public void proc(PreparedStatement ps) throws SQLException {
-						ps.setString(1, fileNm);
-						ps.setInt(2, i_user);
-					}
-				});
-			}
-			
-		}catch(Exception e) {
-			e.printStackTrace();
+				@Override
+				public void proc(PreparedStatement ps) throws SQLException {
+					ps.setString(1, fileNm);
+					ps.setInt(2, i_user);
+				}
+			});
 		}
 		
 		response.sendRedirect("/user/profile.korea");
+	}
+	
+	// 기본 이미지로 되돌리는 메서드
+	public void delProfileImg(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int i_user = SecurityUtils.getLoginUserPK(request);
+		String savePath = request.getServletContext().getRealPath("/res/img/" + i_user);	
+		
+		File folder = new File(savePath);
+		
+		if(folder.exists()) {	// 기존 이미지 삭제 처리
+			File[] folder_list = folder.listFiles();
+			
+			for(File file : folder_list) {
+				if(file.isFile()) {
+					file.delete();
+				}
+			}
+			folder.delete();	// 하위 파일들까지 전부 삭제.
+		}
+		
+		String sql = " UPDATE t_user SET profile_img = null "
+				+ " WHERE i_user = ?";
+		
+		UserDAO.executeUpdate(sql, new SQLInterUpdate() {
+			
+			@Override
+			public void proc(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, i_user);
+			}
+		});
+		
+		String result = "{\"result\": 1}";
+		
+		response.setContentType("application/json");
+		response.getWriter().print(result);
 	}
 }

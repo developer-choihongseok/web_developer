@@ -52,10 +52,11 @@ public class BoardController {
 		final String KEY = "b_" + i_board;
 		String myIpAddr = request.getRemoteAddr();
 		
-		// 메모리에 저장되기때문에 용량을 많이 잡아먹는다 -> 메모리 낭비!!!!!!!!!
-		// 테이블만들어서 거기에 조회수를 저장하는 것이 가장 좋다
+		// 메모리에 저장되기 때문에 용량을 많이 잡아먹는다 -> 즉, 메모리 낭비!
+		// 테이블 만들어서 거기에 조회수를 저장하는 것이 가장 좋다.
 		ServletContext application = request.getServletContext();
 		String savedIpAddr = (String) application.getAttribute(KEY);
+//		System.out.println(savedIpAddr);
 		
 		if(savedIpAddr == null || !savedIpAddr.equals(myIpAddr)) {
 			application.setAttribute(KEY, myIpAddr);

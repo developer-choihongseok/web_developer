@@ -3,9 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div>
-	<a href="/board/list.korea?typ=${data.typ }">게시판으로 돌아가기</a>	<!-- BoardDetailSer.java의 data -->
+	<a href="/board/list.korea?typ=${data.typ }">게시판으로 돌아가기</a>
 	
-	<c:if test="${data.i_user == loginUser.i_user }">	<!-- UserService.login의 loginUser -->
+	<c:if test="${data.i_user == loginUser.i_user }">
 		<button onclick="clkDel(${data.i_board}, ${data.typ });">
 			삭제
 		</button>
@@ -38,7 +38,7 @@
 		
 		<%-- 댓글 리스트 --%>
 		<div style="margin-top: 10px;">
-			<strong>댓글 목록</strong><br><br>
+			<strong>댓글 목록</strong><br>
 			
 			<table border="1">
 				<tr>

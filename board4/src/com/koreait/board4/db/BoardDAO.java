@@ -38,6 +38,8 @@ public class BoardDAO extends CommonDAO{
 			ps.setInt(2, param.getI_board());
 			rs = ps.executeQuery();
 			
+			// 레코드가 1개라도 있으면,
+			// 조회한 레크드의 각 칼럼 값을 받아 와서, 각 칼럼 값을 다시 BoardSEL 객체의 속성에 설정.
 			if(rs.next()) {
 				BoardSEL vo = new BoardSEL();
 				

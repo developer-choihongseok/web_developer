@@ -7,8 +7,6 @@ public class UserModel {
 	private String user_id;
 	private String user_pw;
 	private String salt;	// 비밀번호 암호화
-	private String current_pw;
-	private String chk_user_pw;
 	private String nm;
 	private int gender;
 	private String ph;
@@ -39,18 +37,6 @@ public class UserModel {
 	}
 	public void setSalt(String salt) {
 		this.salt = salt;
-	}
-	public String getCurrent_pw() {
-		return current_pw;
-	}
-	public void setCurrent_pw(String current_pw) {
-		this.current_pw = current_pw;
-	}
-	public String getChk_user_pw() {
-		return chk_user_pw;
-	}
-	public void setChk_user_pw(String chk_user_pw) {
-		this.chk_user_pw = chk_user_pw;
 	}
 	public String getNm() {
 		return nm;

@@ -5,6 +5,7 @@ package com.koreait.board4.model;
 public class BoardSEL extends BoardModel{
 	
 	private String writer_nm;
+	private String profile_img;
 	private int favorite_cnt;
 	private int is_favorite;	// 내가 좋아요 했는지 안했는지.
 	
@@ -13,6 +14,12 @@ public class BoardSEL extends BoardModel{
 	}
 	public void setWriter_nm(String writer_nm) {
 		this.writer_nm = writer_nm;
+	}
+	public String getProfile_img() {
+		return profile_img;
+	}
+	public void setProfile_img(String profile_img) {
+		this.profile_img = profile_img;
 	}
 	public int getFavorite_cnt() {
 		return favorite_cnt;

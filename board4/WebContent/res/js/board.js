@@ -76,7 +76,7 @@ function toggleFavorite(i_board){
 			alert('에러가 발생하였습니다.');
 		}
 	}).catch(function(err){	// 통신 실패
-		console.err('에러 발생: ' + err)
+		console.err('에러 발생: ' + err);
 	});
 	
 	/*console.log(fc.getAttribute('is_favorite'));*/

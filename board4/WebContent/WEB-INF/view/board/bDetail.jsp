@@ -9,7 +9,6 @@
 		<button onclick="clkDel(${data.i_board}, ${data.typ });">
 			삭제
 		</button>
-		
 		<a href="regmod?typ=${data.typ }&i_board=${data.i_board }">
 			<button>수정</button>
 		</a>
@@ -18,7 +17,20 @@
 	<div style="margin-top: 20px;">
 		<div>번호 : ${data.seq }</div>
 		<div>조회수 : ${data.hits }</div>
-		<div>작성자: ${data.writer_nm }</div>
+		<div>
+			<span class="profile-td-nm">작성자: </span>
+			<c:if test="${data.profile_img == null }">
+				<div class="circular--landscape circular--size40">
+					<img id="profileImg" src="/res/img/basic_profile.jpg">
+				</div>
+			</c:if>
+			<c:if test="${data.profile_img != null }">
+				<div class="circular--landscape circular--size40">
+					<img id="profileImg" src="/res/img/${data.i_user }/${data.profile_img}">
+				</div>
+			</c:if>
+			${data.writer_nm }
+		</div>
 		<div>제목 : ${data.title }</div>
 		<div>작성일 : ${data.r_dt }</div>
 		<div>내용: ${data.ctnt }</div>

@@ -229,4 +229,42 @@ public class UserController {
 		response.setContentType("application/json");
 		response.getWriter().print(result);
 	}
+	
+	public void changePw(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		request.setAttribute("jsList", new String[] {"user"});
+		Utils.forwardTemp("비밀번호 변경", "temp/basic_temp", "user/changePw", request, response);
+	}
+	
+	public void changePwProc(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int i_user = SecurityUtils.getLoginUserPK(request);
+		String current_pw = request.getParameter("current_pw");
+		String user_pw = request.getParameter("user_pw");
+		
+		UserModel param = new UserModel();
+		param.setI_user(i_user);
+		
+		UserModel userInfo = UserDAO.selUser(param);
+		
+		String encryptCurrentPw = SecurityUtils.getSecurePassword(current_pw, userInfo.getSalt());
+		
+		if(!userInfo.getUser_pw().equals(encryptCurrentPw)) {	// 비밀번호가 틀린 경우
+			request.setAttribute("msg", "기존 비밀번호를 확인해 주세요.");
+			changePw(request, response);
+		}
+		
+		String encryptUserPw = SecurityUtils.getSecurePassword(user_pw, userInfo.getSalt());
+		
+		String sql = " UPDATE t_user SET user_pw = ? WHERE i_user = ? ";
+		
+		UserDAO.executeUpdate(sql, new SQLInterUpdate() {
+			
+			@Override
+			public void proc(PreparedStatement ps) throws SQLException {
+				ps.setString(1, encryptUserPw);
+				ps.setInt(2, SecurityUtils.getLoginUserPK(request));
+			}
+		});
+		
+		logout(request, response);
+	}
 }

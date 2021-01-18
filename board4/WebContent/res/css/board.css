@@ -6,7 +6,7 @@
 
 #favoriteContainer{
     position: absolute;		/* 부모 엘리먼트에 구애 받지 않고, 자유로운 엘리먼트 배치 */
-    right: 650px;			/* 오른쪽에서 650px 떨어져야 한다는 의미 */
+    right: 1200px;			/* 오른쪽에서 650px 떨어져야 한다는 의미 */
     top: 268px;				/* 위에서 268px 떨어져야 한다는 의미 */
     color: #0000ff;
     font-size: 30px;

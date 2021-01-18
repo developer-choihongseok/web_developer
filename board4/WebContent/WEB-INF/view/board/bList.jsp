@@ -25,7 +25,7 @@
 						<th width="500">제목</th>
 						<th width="100">조회수</th>
 						<th width="180">작성일</th>
-						<th width="100">작성자</th>
+						<th width="130">작성자</th>
 						<th width="100">좋아요</th>
 					</tr>
 				</thead>
@@ -36,7 +36,19 @@
 						<td align="center">${item.title }</td>
 						<td align="center">${item.hits }</td>
 						<td align="center">${item.r_dt }</td>
-						<td align="center">${item.writer_nm }</td>
+						<td class="profile-td" align="center">
+							<c:if test="${item.profile_img == null }">
+								<div class="circular--landscape circular--size40">
+									<img id="profileImg" src="/res/img/basic_profile.jpg">
+								</div>
+							</c:if>
+							<c:if test="${item.profile_img != null }">
+								<div class="circular--landscape circular--size40">
+									<img id="profileImg" src="/res/img/${item.i_user }/${item.profile_img}">
+								</div>
+							</c:if>
+							<span class="profile-td-nm">${item.writer_nm }</span>
+						</td>
 						<td align="center">${item.favorite_cnt }</td>
 					</tr>
 				</c:forEach>

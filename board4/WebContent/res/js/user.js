@@ -10,10 +10,30 @@ function delProfileImg(){
 				var container = document.querySelector('#delProfileBtnContainer');
 				
 				img.src = basicProfileImg;
-				container.remove();
+				container.remove();	// 기본 이미지 사용 버튼 삭제.
 			}
 		}
 	}).catch(function(err){
 		console.err('err 발생: ' + err);
 	})
+}
+
+// 비밀번호 변경 전, 확인
+function chkPw(){
+	var frm = document.querySelector('#frm');
+	
+	if(frm.current_pw.value == ''){
+		alert('기존 비밀번호를 작성해 주세요.');
+		frm.current_pw.focus();
+		return false;
+	}else if(frm.user_pw.value == ''){
+		alert('변경할 비밀번호를 작성해 주세요.');
+		frm.user_pw.focus();
+		return false;
+	} else if(frm.user_pw.value != frm.chk_user_pw.value){
+		alert('변경/확인 비밀번호를 확인해 주세요.');
+		frm.user_pw.focus();
+		return false;
+	}
+	return true;
 }

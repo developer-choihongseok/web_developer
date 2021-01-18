@@ -36,7 +36,7 @@
 	</div>
 </div>
 
-<!-- enctype="multipart/form-data" : request.getParameter()로 받아올 수 없다. 
-	그리고 텍스트, 파일 둘 다 보낼수 있다.
+<!-- enctype="multipart/form-data" : <form> 요소가 파일이나 이미지를 서버로 전송할 때 주로 사용.
+	request.getParameter()로 받아올 수 없다.
 	
 	multiple 속성을 주면 이미지 여러 개를 올릴 수 있다. 하지만 방법이 복잡하다..-->
